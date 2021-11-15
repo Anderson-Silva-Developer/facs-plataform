@@ -67,9 +67,7 @@ function answerPeer (user, offer, socket) {
 function setupDataChannel(dataChannel) {
     dataChannel.onopen = checkDataChannelState
     dataChannel.onclose = checkDataChannelState
-    dataChannel.onmessage = function(e) {
-        addMessage(e.data)
-    }
+   
 }
 
 function checkDataChannelState(dataChannel) {

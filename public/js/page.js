@@ -40,24 +40,11 @@ function hidePanel(name) {
 
 function showPanel(name) {
     document.getElementById(name).classList.remove("hide")
-}
 
+
+}
+//adicionar user
 function setLocalPlayerStream() {
     document.getElementById('local-player').srcObject = myStream
     document.getElementById('preview-player').srcObject = myStream
-}
-
-function removeAllMessages() {
-    var parent = document.getElementById('message-printer')
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
-}
-
-function addMessage(message) {
-    var parent = document.getElementById('message-printer')
-    var p = document.createElement('p')
-    p.innerHTML = message
-
-    parent.appendChild(p)
 }

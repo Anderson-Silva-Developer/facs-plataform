@@ -15,10 +15,4 @@ class User {
             this.pc = null
         }
     }
-
-    sendMessage(message) {
-        if(this.dc) {
-            this.dc.send(message)
-        }
-    }
 }

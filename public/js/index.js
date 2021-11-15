@@ -4,14 +4,19 @@ var socket
 const users = new Map()
 
 document.addEventListener('DOMContentLoaded', function() {
+    //opção de usuário
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems,{});    
+    
+    //
 
-    document.getElementById('roomForm').addEventListener('submit', enterInRoom)
-    document.getElementById('chatForm').addEventListener('submit', broadcastChatMessage)
+
+    document.getElementById('roomForm').addEventListener('submit', enterInRoom)    
     document.getElementById('leave').addEventListener('click', leave)
 
     navigator.mediaDevices.getUserMedia({ video: {
-        height: 480,
-        width: 640
+        height: 240,
+        width: 320
     }, audio: true })
     .then(function (stream) {
         myStream = stream
@@ -91,34 +96,25 @@ function initServerConnection(room) {
 }
 
 function enterInRoom (e) {
+    //pegar dados do form
     e.preventDefault()
     room = document.getElementById('inputRoom').value
-
+    var select = document.getElementById("select-user")
+    var value = select.options[select.selectedIndex].value  
+    var element = document.getElementById('typeuser')
+    element.innerHTML =(value==1?"profesor(a)":"aluno(a)")      
+    
     if (room) {
         socket = initServerConnection(room)
     }
 }
 
-function broadcastChatMessage(e) {
-    e.preventDefault()
-
-    var message = document.getElementById('inputChatMessage').value
-
-    addMessage(message)
-
-    for(var user of users.values()) {
-        user.sendMessage(message)
-    }
-
-    document.getElementById('inputChatMessage').value = ''
-}
 
 function leave() {
     socket.close()
     for(var user of users.values()) {
         user.selfDestroy()
     }
-    users.clear()
-    removeAllMessages()
+    users.clear()    
     showForm()
 }
