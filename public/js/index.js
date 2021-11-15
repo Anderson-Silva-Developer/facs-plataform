@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     navigator.mediaDevices.getUserMedia({ video: {
         height: 240,
         width: 320
-    }, audio: true })
+    }, audio: false })
     .then(function (stream) {
         myStream = stream
         setLocalPlayerStream()
