@@ -22,7 +22,8 @@ function createPeer (user) {
         pc.addTrack(track, myStream);
     }
 
-    pc.ontrack = function (event) {
+    pc.ontrack = function (event) {        
+        console.log(event.streams[0])
         if (user.player) {
             return
         }
