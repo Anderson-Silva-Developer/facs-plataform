@@ -3,6 +3,7 @@ const app = express()
 const http = require('http').createServer(app)
 const fs=require("fs")
 require('./SocketService')(http)
+const facs=require('./getExpress')
 //oficial
 class App {
     constructor(port) {
@@ -18,7 +19,7 @@ class App {
         //save video
         app.post('/data',(req,res)=>{              
 
-            const file=fs.createWriteStream('./videos/'+req.headers.name+".webm")            
+            const file=fs.createWriteStream('./src/videos/'+req.headers.name+".webm")            
             req.on('data',chunk=>{
              file.write(chunk)
             })      

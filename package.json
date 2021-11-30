@@ -9,8 +9,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@tensorflow/tfjs-core": "^3.11.0",
+    "canvas": "^2.8.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "face-api.js": "^0.22.2",
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-extract-frames": "^2.0.2",
+    "ffprobe": "^1.1.2",
+    "fluent-ffmpeg": "^2.1.2",
+    "multer": "^1.4.3",
     "socket.io": "^2.3.0"
-  },
-  "devDependencies": {}
+  }
+  
 }
