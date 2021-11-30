@@ -3,7 +3,7 @@ var myStream
 var socket
 const users = new Map()
 const parts=[]
-const url="https://plataform-facs.herokuapp.com/data"
+const url= "/data"
 
 var exitpage=true
 
