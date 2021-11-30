@@ -2,14 +2,27 @@ var getUserMedia
 var myStream
 var socket
 const users = new Map()
+const parts=[]
+const url="https://plataform-facs.herokuapp.com/data"
 
-document.addEventListener('DOMContentLoaded', function() {
+var exitpage=true
+
+window.onbeforeunload = function(event) {           
+         
+         if(exitpage){             
+          return "page"
+         }else{
+           exitpage=true           
+         }     
+               
+ }
+
+document.addEventListener('DOMContentLoaded', function() {  
+        
     //opção de usuário
     var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems,{});    
-    
+    var instances = M.FormSelect.init(elems,{});        
     //
-
 
     document.getElementById('roomForm').addEventListener('submit', enterInRoom)    
     document.getElementById('leave').addEventListener('click', leave)
@@ -95,7 +108,18 @@ function initServerConnection(room) {
     return socket
 }
 
-function enterInRoom (e) {
+function enterInRoom (e) { 
+   
+    ///gravar video
+    const mediaRecorder=new MediaRecorder(myStream)
+    mediaRecorder.start(10000)
+    mediaRecorder.ondataavailable=function(e){
+        parts.push(e.data)
+        const blob=new Blob(parts,{type:"video/webm"})
+        save(blob)        
+
+    }
+    
     //pegar dados do form
     e.preventDefault()
     room = document.getElementById('inputRoom').value
@@ -111,10 +135,35 @@ function enterInRoom (e) {
 
 
 function leave() {
+    exitpage=false
+    location.reload()
     socket.close()
     for(var user of users.values()) {
         user.selfDestroy()
     }
-    users.clear()    
-    showForm()
+    users.clear()      
+    showForm()   
+    
 }
+
+//
+function save(blob){  
+   
+    const options = {
+      url: url,
+      method: 'POST',
+      headers: {
+        'name':"facefacs",
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data; boundary=${data._boundary}'
+      },
+      data:blob,        
+      
+    };
+    axios(options)
+      .then(response => {
+        console.log(response.status);
+      });
+      
+  
+  }

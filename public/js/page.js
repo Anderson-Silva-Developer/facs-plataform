@@ -17,6 +17,7 @@ function showForm() {
     hidePanel('fail')
     showPanel('connect')
     hidePanel('players')
+    
 }
 
 function showPlayers() {
@@ -45,6 +46,9 @@ function showPanel(name) {
 }
 //adicionar user
 function setLocalPlayerStream() {
+
+    
     document.getElementById('local-player').srcObject = myStream
     document.getElementById('preview-player').srcObject = myStream
+
 }
