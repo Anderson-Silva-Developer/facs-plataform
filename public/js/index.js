@@ -109,6 +109,16 @@ function initServerConnection(room) {
 }
 
 function enterInRoom (e) { 
+    //
+    Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri("./detections/models"),
+        faceapi.nets.faceLandmark68Net.loadFromUri("./detections/models"),
+        faceapi.nets.faceRecognitionNet.loadFromUri("./detections/models"),
+        faceapi.nets.faceExpressionNet.loadFromUri("./detections/models"),
+      ]).then(Expression());   
+
+    //
+
    
     ///gravar video
     const mediaRecorder=new MediaRecorder(myStream)

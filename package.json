@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
-    "@tensorflow/tfjs-core": "^3.11.0",
+    "@tensorflow/tfjs-node": "^0.1.17",
     "canvas": "^2.8.0",
     "cors": "^2.8.5",
     "ejs": "^3.1.6",
@@ -23,5 +23,4 @@
     "multer": "^1.4.3",
     "socket.io": "^2.3.0"
   }
-  
 }

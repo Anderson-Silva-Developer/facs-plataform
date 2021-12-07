@@ -3,8 +3,7 @@ const app = express()
 const http = require('http').createServer(app)
 const fs=require("fs")
 require('./SocketService')(http)
-const facs=require('./getExpress')
-//oficial
+
 class App {
     constructor(port) {
         this.port = port ? port : 3000
@@ -16,8 +15,9 @@ class App {
                 status: 'UP'
             })
         })
+        app.use(express.json())
         //save video
-        app.post('/data',(req,res)=>{              
+        app.post('/data',(req,res)=>{            
 
             const file=fs.createWriteStream('./src/videos/'+req.headers.name+".webm")            
             req.on('data',chunk=>{
@@ -31,7 +31,18 @@ class App {
             })
            
         }) 
-        //
+        //save emotions
+        app.put('/json',(req,res)=>{
+        try {
+            console.log(req.body)
+          res.send("ok")
+        } catch (error) {
+            console.log(error)
+        }
+          
+          
+        })
+        ///
         
         app.use(express.static('public'))
                 

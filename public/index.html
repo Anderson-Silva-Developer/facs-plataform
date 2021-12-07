@@ -3,8 +3,7 @@
         <title>face facs</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="css/video.css"/>
-        <link type="text/css" rel="stylesheet" href="css/styles.css"/>
+        <link type="text/css" rel="stylesheet" href="css/video.css"/>        
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
@@ -30,32 +29,33 @@
                 </div>
             </div>
         </div>
-        <div id="connect" class="row hide" >
-            <div class="col s12 m4 offset-m4" >
-                <div class="card" style="margin-top:50px;">
+        <div id="connect" class="center row hide" >
+            <div class="col s8 offset-s2" >
+                <div class="card" style="margin-top:50px;">                    
                     <div class="card-action teal lighten-1 white-text" >
                         <h3 class="card-title center" >FACE FACS</h3>
                     </div>
                     <div class="card-content">
                         <div class="row">
                             <div class="col s6">
-                                <form id="roomForm" >
+                                <form id="roomForm">
                                     <div class="row input-field">
                                         <input id="inputRoom" placeholder="código da sala" type="text" required>
                                         <label for="inputRoom">código da sala:</label> 
                                     </div>
                                     <div>     
-                                        <div class="input-field col s12">
-                                            <select id="select-user">                                              
-                                              <option value="1">professor(a)</option>
+                                        <div class="input-field row s12 m12">
+                                            <select id="select-user" >                                              
+                                              <option value="1">prof(a)</option>
                                               <option value="2">aluno(a)</option>                                              
                                             </select>
-                                            <label>Tipo de usuário</label>
-                                          </div>
-
-                                        
+                                            <span>Tipo de usuário</span>
+                                           
+                                          </div>                                        
                                     </div><br>
-                                    <button type="submit" style="width: 100%;" class="btn-large waves-effect waves-dark">Entrar</button>
+                                    <div class="row s12">
+                                    <button type="submit" style="width: 100%;" class="waves-effect waves-light btn-small">Entrar</button>
+                                    </div>
                                 </form>
                             </div>
                             <div class="col s6">
@@ -68,7 +68,9 @@
                 </div>
             </div>
         </div>
+        
         <div id="players" class="hide">
+            
             <nav>
                 <div class="nav-wrapper teal">
                   <ul class="right">
@@ -76,23 +78,23 @@
                     <li><a id="leave"><i class="material-icons">exit_to_app</i></a></li>
                   </ul>
                 </div>
-            </nav>
-            <div class="row" style="padding: 5px !important;" >
-                <div id="players-row" class="row col s9">
-                    <div class="col">
-                        <div class="card videoWrapper" >
-                            <video id="local-player" class="responsive-video" autoplay muted></video>                            
-                        </div>
-                    </div>
-                </div>            
-            </div>
+            </nav> 
+            <div id="video">
+                <video id="local-player"  width="320" height="240" class="responsive-video" autoplay muted></video>                            
+             </div>  
+             <h6 id="status"></h6>                                    
+            
         </div>
+        
         <script src="https://unpkg.com/axios@0.21.4/dist/axios.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script src="https://cdn.socket.io/socket.io-2.3.0.js"></script>
+        <script src="./detections/face-api.min.js"></script>
         <script src="js/user.js"></script>
         <script src="js/peer.js"></script>
         <script src="js/page.js"></script>
         <script src="js/index.js"></script>
+        <script src="js/getExpression.js"></script>
+        
     </body>
 </html>

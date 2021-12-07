@@ -22,14 +22,6 @@ function createPeer (user) {
         pc.addTrack(track, myStream);
     }
 
-    pc.ontrack = function (event) {        
-        console.log(event.streams[0])
-        if (user.player) {
-            return
-        }
-        user.player = addVideoPlayer(event.streams[0])
-    }
-
     pc.ondatachannel = function (event) {
         user.dc = event.channel
         setupDataChannel(user.dc)

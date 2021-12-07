@@ -27,14 +27,6 @@ function showPlayers() {
     showPanel('players')
 }
 
-function addVideoPlayer(stream) {
-    var template = new DOMParser().parseFromString('<div class="col"><div class="videoWrapper card"><video class="responsive-video" autoplay></video></div></div>', 'text/html')
-    template.getElementsByTagName('video')[0].srcObject = stream
-    var  divPlayer = template.body.childNodes[0]
-    document.getElementById('players-row').appendChild(divPlayer)
-    return divPlayer
-}
-
 function hidePanel(name) {
     document.getElementById(name).classList.add("hide")
 }
@@ -50,5 +42,6 @@ function setLocalPlayerStream() {
     
     document.getElementById('local-player').srcObject = myStream
     document.getElementById('preview-player').srcObject = myStream
+   
 
 }
