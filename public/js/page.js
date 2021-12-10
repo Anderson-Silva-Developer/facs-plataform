@@ -2,29 +2,42 @@ function showLoading() {
     showPanel('loading')
     hidePanel('fail')
     hidePanel('connect')
-    hidePanel('players')
+    
 }
 
 function showFail() {
     hidePanel('loading')
     showPanel('fail')
     hidePanel('connect')
-    hidePanel('players')
+    
 }
 
 function showForm() {
     hidePanel('loading')
     hidePanel('fail')
-    showPanel('connect')
-    hidePanel('players')
+    showPanel('connect')   
+    hidePanel('login')
     
 }
 
-function showPlayers() {
+function showLogin(){
     hidePanel('loading')
     hidePanel('fail')
-    hidePanel('connect')
-    showPanel('players')
+    hidePanel('connect')    
+    showPanel('login')
+
+}
+
+function showConnect(){   
+    showPanel("div-player")
+    hidePanel('roomForm')
+    custom("div-player","s12")
+    
+    
+}
+
+function custom(name,custom){
+    document.getElementById(name).classList.add(custom)
 }
 
 function hidePanel(name) {
@@ -41,7 +54,7 @@ function setLocalPlayerStream() {
 
     
     document.getElementById('local-player').srcObject = myStream
-    document.getElementById('preview-player').srcObject = myStream
+    
    
 
 }

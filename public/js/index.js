@@ -7,25 +7,28 @@ const url= "/data"
 
 var exitpage=true
 
-window.onbeforeunload = function(event) {           
+
+
+// window.onbeforeunload = function(event) {           
          
-         if(exitpage){             
-          return "page"
-         }else{
-           exitpage=true           
-         }     
+//          if(exitpage){             
+//           return "page"
+//          }else{
+//            exitpage=true           
+//          }     
                
- }
+//  }
 
 document.addEventListener('DOMContentLoaded', function() {  
-        
+
+   
     //opção de usuário
     var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems,{});        
-    //
-
+    var instances = M.FormSelect.init(elems,{});        //
+    
     document.getElementById('roomForm').addEventListener('submit', enterInRoom)    
     document.getElementById('leave').addEventListener('click', leave)
+    
 
     navigator.mediaDevices.getUserMedia({ video: {
         height: 240,
@@ -33,22 +36,49 @@ document.addEventListener('DOMContentLoaded', function() {
     }, audio: false })
     .then(function (stream) {
         myStream = stream
-        setLocalPlayerStream()
-        showForm()
+        setLocalPlayerStream()       
+        showLogin() 
+             
+
     }).catch(function (err) {
         console.log(err)
         showFail()
     })
 }, false)
 
-function initServerConnection(room) {
+function initServerConnection(token,matricula) {
+
     var socket = io({
-        query : {
-            room: room
+        query : {            
+            sessionID:localStorage.getItem("sessionID")?localStorage.getItem("sessionID"):"",
+            token:"ojfgfkgfgn,fg,nf,mgn,mfngmfn,mfn",            
+            username:matricula
+            
         }
     })
+    
+    const sessionID = localStorage.getItem("sessionID");
+    console.log(socket)
 
+    if (sessionID) {     
+        
+        socket.auth = { sessionID };
+        socket.connect();
+    }
+    
+    socket.on("session", ({sessionID,username}) => {      
+
+        socket.auth = { sessionID };
+        localStorage.setItem("sessionID", sessionID);        
+        
+        socket.username = username;   
+        console.log(socket.username)  
+
+
+      });
+          
     socket.on('disconnect-user', function (data) {
+               
         var user = users.get(data.id)
         if(user) {
             users.delete(data.id)
@@ -96,7 +126,10 @@ function initServerConnection(room) {
     })
     
     socket.on('connect', function () {
-        showPlayers()
+
+        console.log("========= conectado ========== index 136")
+        showConnect()
+
     })
 
     socket.on('connect_error', function(error) {
@@ -109,6 +142,8 @@ function initServerConnection(room) {
 }
 
 function enterInRoom (e) { 
+    e.preventDefault()
+    
     //
     Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri("./detections/models"),
@@ -126,20 +161,21 @@ function enterInRoom (e) {
     mediaRecorder.ondataavailable=function(e){
         parts.push(e.data)
         const blob=new Blob(parts,{type:"video/webm"})
-        save(blob)        
+        // save(blob)        
 
     }
     
     //pegar dados do form
-    e.preventDefault()
-    room = document.getElementById('inputRoom').value
+
     var select = document.getElementById("select-user")
-    var value = select.options[select.selectedIndex].value  
-    var element = document.getElementById('typeuser')
-    element.innerHTML =(value==1?"profesor(a)":"aluno(a)")      
+    var typeUser = select.options[select.selectedIndex].value     
+    token = document.getElementById('inputRoom').value
+    matricula=document.getElementById("matricula").value  
+  
     
-    if (room) {
-        socket = initServerConnection(room)
+    if (token && matricula) {       
+        socket = initServerConnection(token,matricula)
+        
     }
 }
 
@@ -177,3 +213,4 @@ function save(blob){
       
   
   }
+//

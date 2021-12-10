@@ -1,3 +1,4 @@
+
 <html>
     <head>
         <title>face facs</title>
@@ -30,71 +31,110 @@
             </div>
         </div>
         <div id="connect" class="center row hide" >
-            <div class="col s8 offset-s2" >
+            <div class="col s12" >
                 <div class="card" style="margin-top:50px;">                    
                     <div class="card-action teal lighten-1 white-text" >
-                        <h3 class="card-title center" >FACE FACS</h3>
+                        <!-- <h3 class="card-title center" >FACE FACS</h3> -->
+                        <nav>
+                            <div class="nav-wrapper teal">
+                              <ul class="right">
+                                <li id="typeuser" ></li>  
+                                <li class="center">FACE FACS</li>
+                                <li><a id="leave"><i class="material-icons">exit_to_app</i></a></li>
+                              </ul>
+                            </div>
+                        </nav> 
+                        
                     </div>
-                    <div class="card-content">
+                    <div id="transparence" class="card-content">
                         <div class="row">
-                            <div class="col s6">
+                            
+                            <div class="col s12 ">
                                 <form id="roomForm">
+                                    <div class="row input-field">                                      
+                                                                                                                      
+                                            <div class="file-field input-field">
+                                              <div class="btn">
+                                                <span>token</span>
+                                                <input id="inputRoom"  type="file" required>
+                                              </div>
+                                              <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                              </div>
+                                            </div>                                 
+                                                                               
+                                    </div>                                    
                                     <div class="row input-field">
-                                        <input id="inputRoom" placeholder="código da sala" type="text" required>
-                                        <label for="inputRoom">código da sala:</label> 
+                                        <input id="matricula" placeholder="sua matricula" type="text" required>
+                                        
                                     </div>
-                                    <div>     
-                                        <div class="input-field row s12 m12">
-                                            <select id="select-user" >                                              
-                                              <option value="1">prof(a)</option>
-                                              <option value="2">aluno(a)</option>                                              
-                                            </select>
-                                            <span>Tipo de usuário</span>
-                                           
-                                          </div>                                        
-                                    </div><br>
+                                    <br>
                                     <div class="row s12">
                                     <button type="submit" style="width: 100%;" class="waves-effect waves-light btn-small">Entrar</button>
                                     </div>
                                 </form>
                             </div>
-                            <div class="col s6">
-                                <div class="videoWrapper" >
-                                    <video id="preview-player" class="responsive-video" autoplay muted></video>
-                                </div>
+                            
+                            <div id="div-player" class="col s6 hide">                                
+                                <div id="video" class="videoWrapper" >
+                                    <video id="local-player" class="responsive-video" autoplay muted></video>
+                                    <canvas id="node-video" ></canvas>
+                                </div>  
+                                                                 
+                            </div>  
+                           
+                       </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <div id="login" class="center row hide" >
+            <div class="col s12" >
+                <div class="card" style="margin-top:50px;">                    
+                    <div class="card-action teal lighten-1 white-text" >
+                        <h3 class="card-title center" >FACE FACS</h3>
+                        
+                    </div>
+                    <div id="fundo-login" class="card-content">
+                        <div class="row">                            
+                            <div class="col s12">
+                                <form id="loginForm">                                    
+                                    <div>     
+                                        <div class="input-field row s12 m12">
+                                            <span >Tipo de usuário</span>
+                                            <select id="select-user" onchange="userOpcao(this);" > 
+                                             <option value="0">eu sou </option>                                             
+                                              <option value="1">prof(a)</option>
+                                              <option value="2">aluno(a)</option>                                              
+                                            </select>                                           
+                                           
+                                          </div>                                        
+                                    </div>                          
+                                   
+                                </form>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div id="players" class="hide">
-            
-            <nav>
-                <div class="nav-wrapper teal">
-                  <ul class="right">
-                    <li id="typeuser" ></li>  
-                    <li><a id="leave"><i class="material-icons">exit_to_app</i></a></li>
-                  </ul>
-                </div>
-            </nav> 
-            <div id="video">
-                <video id="local-player"  width="320" height="240" class="responsive-video" autoplay muted></video>                            
-             </div>  
-             <h6 id="status"></h6>                                    
-            
-        </div>
-        
+       
         <script src="https://unpkg.com/axios@0.21.4/dist/axios.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script src="https://cdn.socket.io/socket.io-2.3.0.js"></script>
-        <script src="./detections/face-api.min.js"></script>
+        <script src="./detections/face-api.min.js"></script>       
+        <script src="js/index.js"></script>            
         <script src="js/user.js"></script>
         <script src="js/peer.js"></script>
         <script src="js/page.js"></script>
-        <script src="js/index.js"></script>
         <script src="js/getExpression.js"></script>
+        <script src="js/login.js"></script>  
+       
+       
+       
         
     </body>
 </html>

@@ -1,7 +1,8 @@
 .videoWrapper {
-    position: relative;
+    display: flex;
+    /* position: relative;
     padding-bottom: 75%;
-    height: 0;  
+    height: 0;   */
        
 }
 
@@ -13,12 +14,33 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    /* background-image: url("/img/fundo.jpg");
+    background-size: cover;
+    background-attachment: fixed; */
 }
-canvas {    
-    position:absolute;    
-    background: chartreuse;
-}
-#video{
-    display:flex;
 
+#node-video{
+    position:absolute;
+    background-color:white;
+    width:85%;
+    height: 60%;
+    /* background-image: url("/img/fundo.jpg");
+    background-size: cover;
+    background-attachment: fixed; */
 }
+/* 
+#transparence{
+    background-image: url("/img/fundo.jpg");
+    background-size: cover;
+    background-attachment: fixed; 
+    
+} */
+/* #fundo-login{
+    background-image: url("/img/fundo.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+
+} */ 
+
+
