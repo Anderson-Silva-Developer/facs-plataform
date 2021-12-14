@@ -43,7 +43,7 @@ function initServerConnection(token,matricula) {
                         
         }
     })   
-    
+    socket.matricula=matricula
           
     socket.on('disconnect-user', function (data) {
                
@@ -115,7 +115,11 @@ function initServerConnection(token,matricula) {
         localStorage.setItem("status","stop")
         
      })
-    
+     socket.on('getId',function(id){        
+        socket.emit('postId',socket.matricula)        
+        
+     })
+         
     return socket
 }
 

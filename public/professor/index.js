@@ -48,21 +48,27 @@ function initServerConnection(token_aula) {
     
     socket.on('connect', function () {        
        console.log("connect")
+       socket.emit('getId',socket.id)
+
+       
 
     })
 
     socket.on('connect_error', function(error) {
         console.log('Connection ERROR!')
         console.log(error)
-        // leave()
+        
     })
     socket.on('feedback', function(matricula) {
-        console.log("start :"+matricula)
-        
+        console.log("start :"+matricula)       
         
     })
-
-
+    socket.on('responseGetId', function(matricula) {
+        addAluno(matricula)     
+        
+    })
+    
+    
     
     return socket
 }
@@ -95,12 +101,26 @@ function sendStop(){
 
 
 function addAluno(matricula){
+    try {
+        var template = new DOMParser().parseFromString(`<a id="${matricula}"class="collection-item">${matricula}<span class="badge green"></span></a>`, 'text/html')
+        var  list = template.body.childNodes[0]        
+        document.getElementById('addAluno').appendChild(list)
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
       
-    var template = new DOMParser().parseFromString(`<a id="${matricula}"class="collection-item">${matricula}<span class="new badge green">conectado</span></a>`, 'text/html')
-    var  list = template.body.childNodes[0]        
-    document.getElementById('addAluno').appendChild(list)
+    
 }
 function removeAluno(matricula){
-    document.getElementById(`${matricula}`).remove()
+    try {
+        if(document.getElementById(`${matricula}`)){
+            document.getElementById(`${matricula}`).remove()
+        }       
+    } catch (error) {
+        console.log(error)
+    }
+   
 }
 

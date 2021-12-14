@@ -85,7 +85,15 @@ class SocketService {
                 socket.on('feedback_start',(matricula)=>{                                   
                     socket.broadcast.emit('feedback',matricula)
                 })
-                
+                socket.on('getId',(id)=>{                                                     
+                    socket.broadcast.emit('getId',id)
+                })
+                socket.on('postId',(matricula)=>{                                                      
+                    socket.broadcast.emit('responseGetId',matricula)
+                })
+
+
+                                
             }
         })
     }

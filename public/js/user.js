@@ -1,6 +1,5 @@
 class User {
-    constructor(id) {
-        console.log("user =========="+id)
+    constructor(id) {       
         this.id = id;
     }
     
