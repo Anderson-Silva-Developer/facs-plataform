@@ -1,8 +1,3 @@
-const { InMemorySessionStore } = require("./sessionStore");
-const sessionStore = new InMemorySessionStore();
-const crypto = require("crypto");
-const randomId = () => crypto.randomBytes(8).toString("hex");
-
 
 const EVENT_CONNECTION = 'connection'
 const EVENT_CALL = 'call'
@@ -20,61 +15,33 @@ class SocketService {
 
     init(http) {
         this.io = require('socket.io')(http)
-
-       
-         
-        this.io.use((socket, next) => {
-            
-            const sessionID = socket.handshake.query.sessionID;
-            if (sessionID) {
-              // find existing session
-              const session = sessionStore.findSession(sessionID);
-              if (session) {
-                socket.sessionID = sessionID;                
-                socket.username = session.username;                
-                return next();
-              }
+        this.io.use(async (socket, next) => {
+            try {
+              const matricula = socket.handshake.query.matricula
+              socket.matricula =matricula;
+              next()
+            } catch (e) {
+              next(new Error("unknown user"));
             }
-            const username = socket.handshake.query.username;
-
-            const sessionRoom=socket.handshake.query.sessionRoom;
-            const typeUser=socket.handshake.query.typeUser;
-
-            if (!username) {
-              return next(new Error("invalid username"));
-            }
-            // create new session
-            socket.sessionID = randomId();            
-            socket.username = username;            
-            next();
           });
-
-        //===========================================
+               
         this.io.on(EVENT_CONNECTION, (socket) => {
 
             const room = socket.handshake.query.token
-
+                       
 
             if (!room) {
                 socket.disconnect()
             } else {
-                // persistencia id
-                
-                socket.emit("session", {
-                    sessionID: socket.sessionID,                   
-                    username:socket.username,                            
-
-                });
-                //
-                
+                                                
                 console.log(`novo aluno na room ${room}`)             
                 console.log(socket.id)
                 socket.join(room)
-                console.log('requesting offers')
-                socket.to(room).emit(EVENT_CALL, { id: (socket.id) })
+                console.log('requesting offers')         
+
+                socket.to(room).emit(EVENT_CALL, { id: (socket.id),matricula:(socket.matricula)})
                 
                 socket.on(EVENT_OFFER, (data) => {
-                    console.log("==================")
 
                     console.log(`${socket.id} offering ${data.id}`)
                     socket.to(data.id).emit(EVENT_OFFER, {
@@ -102,9 +69,23 @@ class SocketService {
                 socket.on(EVENT_DISCONNECT, () => {
                     console.log(`${socket.id} disconnected`)
                     this.io.emit(EVENT_DISCONNECT_USER, {
-                        id: socket.id
+                        id: socket.id,
+                        matricula:(socket.matricula)
                     })
                 })
+
+                socket.on('start',(msg)=>{    
+                    console.log(msg)               
+                    socket.broadcast.emit('start',msg)
+                })
+                socket.on('stop',(msg)=>{    
+                    console.log(msg)               
+                    socket.broadcast.emit('stop',msg)
+                })
+                socket.on('feedback_start',(matricula)=>{                                   
+                    socket.broadcast.emit('feedback',matricula)
+                })
+                
             }
         })
     }

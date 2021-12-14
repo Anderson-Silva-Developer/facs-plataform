@@ -5,77 +5,45 @@ const users = new Map()
 const parts=[]
 const url= "/data"
 
-var exitpage=true
-
-
-
-// window.onbeforeunload = function(event) {           
-         
-//          if(exitpage){             
-//           return "page"
-//          }else{
-//            exitpage=true           
-//          }     
-               
-//  }
-
+window.onbeforeunload = function() { return "Your work will be lost."; };
 document.addEventListener('DOMContentLoaded', function() {  
-
+    if(!localStorage.getItem("status")){
+        localStorage.setItem("status","pause")
+      
+    }
+    
    
-    //opção de usuário
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems,{});        //
-    
-    document.getElementById('roomForm').addEventListener('submit', enterInRoom)    
-    document.getElementById('leave').addEventListener('click', leave)
-    
+document.getElementById('leave').addEventListener('click', leave) 
 
     navigator.mediaDevices.getUserMedia({ video: {
         height: 240,
         width: 320
     }, audio: false })
     .then(function (stream) {
-        myStream = stream
-        setLocalPlayerStream()       
-        showLogin() 
-             
-
+        myStream = stream 
+       
+        enterInRoom()   
+          
+         
+       
     }).catch(function (err) {
         console.log(err)
         showFail()
+       
     })
 }, false)
 
 function initServerConnection(token,matricula) {
 
     var socket = io({
-        query : {            
-            sessionID:localStorage.getItem("sessionID")?localStorage.getItem("sessionID"):"",
-            token:"ojfgfkgfgn,fg,nf,mgn,mfngmfn,mfn",            
-            username:matricula
-            
+        query : {    
+
+            token:token,
+            matricula:matricula      
+                        
         }
-    })
+    })   
     
-    const sessionID = localStorage.getItem("sessionID");
-    console.log(socket)
-
-    if (sessionID) {     
-        
-        socket.auth = { sessionID };
-        socket.connect();
-    }
-    
-    socket.on("session", ({sessionID,username}) => {      
-
-        socket.auth = { sessionID };
-        localStorage.setItem("sessionID", sessionID);        
-        
-        socket.username = username;   
-        console.log(socket.username)  
-
-
-      });
           
     socket.on('disconnect-user', function (data) {
                
@@ -126,8 +94,7 @@ function initServerConnection(token,matricula) {
     })
     
     socket.on('connect', function () {
-
-        console.log("========= conectado ========== index 136")
+        
         showConnect()
 
     })
@@ -137,19 +104,30 @@ function initServerConnection(token,matricula) {
         console.log(error)
         leave()
     })
+    socket.on('start',function(msg){
+        console.log("mansagem recebida "+msg)
+        localStorage.setItem("status","start")
+        socket.emit('feedback_start',matricula)
+        
+     })
+     socket.on('stop',function(msg){
+        console.log("mansagem recebida "+msg)
+        localStorage.setItem("status","stop")
+        
+     })
     
     return socket
 }
 
-function enterInRoom (e) { 
-    e.preventDefault()
+function enterInRoom () { 
+    
     
     //
     Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri("./detections/models"),
-        faceapi.nets.faceLandmark68Net.loadFromUri("./detections/models"),
-        faceapi.nets.faceRecognitionNet.loadFromUri("./detections/models"),
-        faceapi.nets.faceExpressionNet.loadFromUri("./detections/models"),
+        faceapi.nets.tinyFaceDetector.loadFromUri("../detections/models"),
+        faceapi.nets.faceLandmark68Net.loadFromUri("../detections/models"),
+        faceapi.nets.faceRecognitionNet.loadFromUri("../detections/models"),
+        faceapi.nets.faceExpressionNet.loadFromUri("../detections/models"),
       ]).then(Expression());   
 
     //
@@ -167,11 +145,9 @@ function enterInRoom (e) {
     
     //pegar dados do form
 
-    var select = document.getElementById("select-user")
-    var typeUser = select.options[select.selectedIndex].value     
-    token = document.getElementById('inputRoom').value
-    matricula=document.getElementById("matricula").value  
-  
+        
+    token = localStorage.getItem("inputTokenAluno")
+    matricula=localStorage.getItem("matricula_aluno")        
     
     if (token && matricula) {       
         socket = initServerConnection(token,matricula)
@@ -180,15 +156,15 @@ function enterInRoom (e) {
 }
 
 
-function leave() {
-    exitpage=false
-    location.reload()
+function leave() {    
     socket.close()
     for(var user of users.values()) {
         user.selfDestroy()
     }
-    users.clear()      
-    showForm()   
+    users.clear()  
+    
+    localStorage.clear();
+    window.location.replace("../index.html");   
     
 }
 

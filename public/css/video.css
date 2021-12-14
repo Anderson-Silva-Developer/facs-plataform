@@ -20,22 +20,22 @@ body {
     background-attachment: fixed; */
 }
 
-#node-video{
+ #node-video{ 
     position:absolute;
     background-color:white;
-    width:85%;
-    height: 60%;
+    width:90%;
+    height: 65%; 
     /* background-image: url("/img/fundo.jpg");
     background-size: cover;
     background-attachment: fixed; */
 }
-/* 
-#transparence{
+
+/* #transparence{
     background-image: url("/img/fundo.jpg");
     background-size: cover;
     background-attachment: fixed; 
     
-} */
+}  */
 /* #fundo-login{
     background-image: url("/img/fundo.jpg");
     background-size: cover;

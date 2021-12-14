@@ -1,0 +1,67 @@
+
+<html>
+    <head>
+        <title>face facs</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="../css/video.css"/>        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+       
+        <div id="fail" class="row hide">
+            <div class="col s12" >  
+                <div class="card pink white-text">
+                    <div class="card-content">
+                        <p>camera não encontrada :(</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="connect" class="center row" >
+            <div class="col s12" >
+                <div class="card" style="margin-top:50px;">                    
+                    <div class="card-action teal lighten-1 white-text" >
+                        <!-- <h3 class="card-title center" >FACE FACS</h3> -->
+                        <nav>
+                            <div class="nav-wrapper teal">
+                              <ul class="right">
+                                <li id="typeuser" ></li>  
+                                <li class="center">FACE FACS</li>
+                                <li><a id="leave"><i class="material-icons">exit_to_app</i></a></li>
+                              </ul>
+                            </div>
+                        </nav> 
+                        
+                    </div>
+                    <div id="transparence" class="card-content">
+                        <div class="row">                        
+                            
+                            <div id="div-player" class="col s12 hide">                                
+                                <div id="video" class="videoWrapper" >
+                                    <video id="local-player" class="responsive-video" autoplay muted></video>
+                                    <canvas id="node-video" ></canvas>
+                                </div>  
+                                                                 
+                            </div>  
+                           
+                       </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <script src="https://unpkg.com/axios@0.21.4/dist/axios.min.js"></script>
+        <script type="text/javascript" src="../js/materialize.min.js"></script>
+        <script src="https://cdn.socket.io/socket.io-2.3.0.js"></script>
+        <script src="../detections/face-api.min.js"></script>       
+        <script src="../js/index.js"></script>            
+         <script src="../js/user.js"></script>
+         <script src="../js/peer.js"></script>
+        <script src="../js/page.js"></script>
+        <script src="../js/getExpression.js"></script> 
+        
+   
+               
+    </body>
+</html>

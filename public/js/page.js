@@ -1,36 +1,17 @@
-function showLoading() {
-    showPanel('loading')
-    hidePanel('fail')
-    hidePanel('connect')
-    
-}
 
 function showFail() {
-    hidePanel('loading')
+   
     showPanel('fail')
-    hidePanel('connect')
+    hidePanel("connect")
+    
     
 }
 
-function showForm() {
-    hidePanel('loading')
-    hidePanel('fail')
-    showPanel('connect')   
-    hidePanel('login')
-    
-}
 
-function showLogin(){
-    hidePanel('loading')
-    hidePanel('fail')
-    hidePanel('connect')    
-    showPanel('login')
-
-}
-
-function showConnect(){   
-    showPanel("div-player")
-    hidePanel('roomForm')
+function showConnect(){ 
+    hidePanel('fail') 
+    showPanel("connect") 
+    showPanel("div-player")    
     custom("div-player","s12")
     
     

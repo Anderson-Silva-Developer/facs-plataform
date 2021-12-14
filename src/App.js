@@ -16,6 +16,7 @@ class App {
             })
         })
         app.use(express.json())
+        app.set('view engine','ejs')
         //save video
         app.post('/data',(req,res)=>{            
 
@@ -42,6 +43,9 @@ class App {
           
           
         })
+        app.get('/sala/aluno', (req, res) => {
+            res.render(__dirname+"/index")
+          })
         ///
         
         app.use(express.static('public'))

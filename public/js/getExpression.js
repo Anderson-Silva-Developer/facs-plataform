@@ -29,16 +29,22 @@ function Expression(){
               }              
 
             });    
+            if(localStorage.getItem("status")==="start"){
+              console.log("gravando")
 
             resultJson+=JSON.stringify(
-              { 
-                "matricula":"20171cxcc0325",
+              { "token":localStorage.getItem('inputTokenAluno'),
+                "matricula":localStorage.getItem('matricula_aluno'),
                 "expression":expression,
                 "porcentagem":porcentagem,
                 "hora": new Date().getHours(),
                 "minutos":new Date().getMinutes(),
                 "segundos":new Date().getSeconds()
                });
+
+            }else{
+              console.log("gravação pausada")
+            }   
                
           
         } catch (error) {
@@ -49,7 +55,11 @@ function Expression(){
          //post emotions 
         setInterval(() => {
           if(resultJson.length>0){
-          // postExpressions(resultJson)
+            if(localStorage.getItem("status")==="start"){  
+          postExpressions(resultJson)
+          }else{
+            console.log(" post: gravação pausada")
+          }
           // console.log(resultJson.length)
           console.log(resultJson)
           resultJson=""
