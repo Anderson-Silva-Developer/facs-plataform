@@ -30,7 +30,9 @@ function initServerConnection(token_aula) {
     })
     
     socket.on('call',  function (data) {
-       console.log("call"+data.matricula)
+       console.log("call"+data.matricula) 
+       socket.emit('gravando',data.id,localStorage.getItem("gravando"))   
+       
        addAluno(data.matricula)
     })
 
@@ -46,8 +48,9 @@ function initServerConnection(token_aula) {
        console.log("candidate")
     })
     
-    socket.on('connect', function () {        
+    socket.on('connect', function () {  
        console.log("connect")
+       statusAula(localStorage.getItem("gravando")=="on"?"on":"of")  
        socket.emit('getId',socket.id)
 
        
@@ -77,8 +80,9 @@ function enterInRoom () {
     matricula_professor=localStorage.getItem("matricula_professor")
     token_prof=localStorage.getItem("token_prof")
     token_aula=localStorage.getItem("token_aula")
+    status_aula=localStorage.getItem("gravando")
 
-    if (token_prof && token_aula && matricula_professor) {       
+    if (token_prof && token_aula && matricula_professor && status_aula) {       
         socket = initServerConnection(token_aula)        
     }
 
@@ -93,9 +97,11 @@ function leave() {
 
 function sendStart(){
     socket.emit('start',"start in:"+localStorage.getItem("token_aula"))
+    statusAula("on")
 }
 function sendStop(){
     socket.emit('stop',"stop in:"+localStorage.getItem("token_aula"))
+    statusAula("off")
     
 }
 
@@ -122,5 +128,27 @@ function removeAluno(matricula){
         console.log(error)
     }
    
+}
+function statusAula(status){
+    if(status==="on"){
+        localStorage.setItem('gravando',"on");
+        var template = new DOMParser().parseFromString(`<div id="onCam" class="btn-floating red pulse"><i class="material-icons">videocam</i></div>`, 'text/html')
+        var  list = template.body.childNodes[0]        
+        divStatus=document.getElementById('statusAula')
+        divStatus.innerText = "";       
+        divStatus.appendChild(list)
+         
+      console.log("camera ligada")
+    }
+    if(status==="off"){
+        localStorage.setItem('gravando',"off");
+        var template = new DOMParser().parseFromString(`<div id="offCam" class="btn-floating gray "><i class="material-icons">videocam_off</i></div>`, 'text/html')
+        var  list = template.body.childNodes[0] 
+        divStatus=document.getElementById('statusAula')
+        divStatus.innerText = "";       
+        divStatus.appendChild(list)
+
+    }
+
 }
 

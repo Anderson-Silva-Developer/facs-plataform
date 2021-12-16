@@ -94,7 +94,7 @@ function initServerConnection(token,matricula) {
     })
     
     socket.on('connect', function () {
-        
+        console.log("=====================")
         showConnect()
 
     })
@@ -117,6 +117,10 @@ function initServerConnection(token,matricula) {
      })
      socket.on('getId',function(id){        
         socket.emit('postId',socket.matricula)        
+        
+     })
+     socket.on('gravando',function(gravando){        
+        localStorage.setItem("status",gravando=="on"?"start":"stop")     
         
      })
          

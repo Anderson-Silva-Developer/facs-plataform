@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.FormSelect.init(elems,{});  
     document.getElementById('loginForm').addEventListener('submit',pageOpcao)
 
-    if((localStorage.getItem("token_aula")) && (localStorage.getItem("token_prof")) && (localStorage.getItem("matricula_professor"))){ 
+    if((localStorage.getItem("token_aula")) && (localStorage.getItem("token_prof")) && (localStorage.getItem("matricula_professor")) && (localStorage.getItem("gravando"))){ 
         alert("já existe login em andamento!!")  
         window.location.replace("./sala_prof.html");
     }
@@ -22,7 +22,7 @@ function pageOpcao(e)
     
     if(opUser==1){ 
         try { 
-               if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("matricula_professor"))){
+               if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("matricula_professor")) && !(localStorage.getItem("gravando"))){
 
                 matricula=document.getElementById("matricula").value   
                 var file_token_aula = document.getElementById("inputToken").files[0];
@@ -41,12 +41,12 @@ function pageOpcao(e)
                                      
                   var content = e.target.result;
                   var intern = JSON.parse(content);
-                  if((localStorage.getItem("token_aula")) &&(!localStorage.getItem("matricula"))){
-                    localStorage.setItem('token_prof',intern.token);  
-                    localStorage.setItem('matricula_professor',matricula);
-                    window.location.replace("./sala_prof.html");
+                                
+                localStorage.setItem('token_prof',intern.token);  
+                localStorage.setItem('matricula_professor',matricula);
+                localStorage.setItem('gravando',"off");
 
-                  }      
+                window.location.replace("./sala_prof.html");                     
                   
                 };
                 

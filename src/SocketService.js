@@ -91,6 +91,10 @@ class SocketService {
                 socket.on('postId',(matricula)=>{                                                      
                     socket.broadcast.emit('responseGetId',matricula)
                 })
+                //recuperar status da gravação
+                socket.on('gravando',(id,status)=>{                                                 
+                    socket.to(id).emit("gravando",status)
+                })
 
 
                                 
