@@ -64,7 +64,18 @@ function pageOpcao(e)
       
     }
     if(opUser==2){
-        console.log("criar sala professor")
+        if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("matricula_professor")) && !(localStorage.getItem("gravando"))){
+            window.location.replace("./criar_aula.html");  
+        }else{
+            alert("Erro")
+            console.log(localStorage.getItem("token_aula"))
+            console.log(localStorage.getItem("token_prof"))
+            console.log(localStorage.getItem("matricula_professor"))
+            console.log(localStorage.getItem("gravando"))
+        }
+
+
+ 
  
  
  
@@ -80,7 +91,7 @@ if(opcao.value==2){
        
         hidePanel("optionProf")
     } catch (error) {
-        console.log("========")
+        console.log(error)
     }
            
 }

@@ -12,6 +12,7 @@ class SocketService {
     constructor(http) {
         this.init(http)
     }
+   
 
     init(http) {
         this.io = require('socket.io')(http)
@@ -28,7 +29,6 @@ class SocketService {
         this.io.on(EVENT_CONNECTION, (socket) => {
 
             const room = socket.handshake.query.token
-                       
 
             if (!room) {
                 socket.disconnect()

@@ -2,8 +2,7 @@ var getUserMedia
 var myStream
 var socket
 const users = new Map()
-const parts=[]
-const url= "/data"
+const url= "/auth"
 
 window.onbeforeunload = function() { return "Your work will be lost."; };
 document.addEventListener('DOMContentLoaded', function() {  
@@ -94,7 +93,7 @@ function initServerConnection(token,matricula) {
     })
     
     socket.on('connect', function () {
-        console.log("=====================")
+        
         showConnect()
 
     })
@@ -127,7 +126,7 @@ function initServerConnection(token,matricula) {
     return socket
 }
 
-function enterInRoom () { 
+async function enterInRoom () { 
     
     
     //
@@ -137,28 +136,22 @@ function enterInRoom () {
         faceapi.nets.faceRecognitionNet.loadFromUri("../detections/models"),
         faceapi.nets.faceExpressionNet.loadFromUri("../detections/models"),
       ]).then(Expression());   
-
-    //
-
-   
-    ///gravar video
-    const mediaRecorder=new MediaRecorder(myStream)
-    mediaRecorder.start(10000)
-    mediaRecorder.ondataavailable=function(e){
-        parts.push(e.data)
-        const blob=new Blob(parts,{type:"video/webm"})
-        // save(blob)        
-
-    }
+  
     
-    //pegar dados do form
+    token = localStorage.getItem("inputTokenAluno")
+    matricula=localStorage.getItem("matricula_aluno") 
 
         
-    token = localStorage.getItem("inputTokenAluno")
-    matricula=localStorage.getItem("matricula_aluno")        
-    
-    if (token && matricula) {       
-        socket = initServerConnection(token,matricula)
+    if (token && matricula) {         
+        if(await isAuth(token)){
+            socket = initServerConnection(token,matricula)
+        }else{
+            alert("token da aula inválido!")
+            localStorage.clear();
+            window.location.replace("../index.html"); 
+        }
+        
+      
         
     }
 }
@@ -177,24 +170,22 @@ function leave() {
 }
 
 //
-function save(blob){  
-   
+function isAuth(token){     
     const options = {
       url: url,
-      method: 'POST',
+      method: 'GET',
       headers: {
-        'name':"facefacs",
+        'x-access-token':token,
         'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data; boundary=${data._boundary}'
-      },
-      data:blob,        
+        'Content-Type': 'application/json'
+      }            
       
     };
-    axios(options)
-      .then(response => {
-        console.log(response.status);
-      });
-      
-  
+    result = axios(options)
+      .then(response => {         
+        return response['data']['auth']
+      })
+    
+    return result
   }
 //
