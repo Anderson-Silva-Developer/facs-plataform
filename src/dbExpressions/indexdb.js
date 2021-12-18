@@ -1,98 +1,83 @@
-const {updateAluno,getAll,deleteAll,addTurma,newcollection,addToken} = require("./crud")
+const {getAll,addToken, add_Expression} = require("./crud")
+const moment = require("moment")
+ 
+ async function getClass(token){
 
-
-//  getAll_()  //ok
-//    updateAluno_()  //ok
-// deleteCollections() //ok
-//  addTurma_( )//ok  
-// addCollection()  
- async function getAll_(){
     result=await getAll()
     list=result[0]
-    console.log(list)
-    // turma=isToken(list,"hfhdjfdjfhdjfhjdfhdjf")
-    // console.log("turma da busca "+turma)
-    // turma="tcc-wpewepxcmmcxxaabbwwww"
-    // addToken_(turma,"aaaajhgfjhgfjhgfjgfkkjgf")
+    result=isToken(list,token)
 
-     
+    return result
+    
 }
 function isToken(list,token_aula){
     turmaResult=""
+    id=""
     list1=(Object.keys(list["tokens"][0]))
     for(var i=0;i<list1.length;i++){
        turma=list1[i]
        list_token=list["tokens"][0][turma]
        for(var k=0;k<list_token.length;k++){
             if(list_token[k]["token-aula"]===token_aula){
-                turmaResult=turma                
+                turmaResult=turma
+                id=(list_token[0]["id"])                
                 break
             }
        }  
        
     }  
-    return turmaResult
+
+    result=[]
+    result.push(turmaResult)
+    result.push(id)
+    return result
 
 
 }
     
- async function updateAluno_(){
+ async function addExpression(emotion,matricula,token_aula,pct,h,m,s){    
+   
+    try {
+
+     array=await getClass(token_aula)
+     turma=array[0]
+     id=array[1]
     
-    emotion="angry"      
-    matricula="20171cxcc0300" 
-    turma="tcc-wpewepxcmmcxxaabb"
-    data="10-09-29" 
+    let data = moment().format("DD/MM/YYYY");  
 
     update={   
               
-        "porcentagem": 1.11,
-        "hora": 40,
-        "minutos": 30,
-        "segundos":36           
+        "porcentagem":pct,
+        "hora": h,
+        "minutos": m,
+        "segundos":s          
           
+      }  
+      console.log(turma+" ************************** :"+id) 
+      if(turma && id){
+         
+
+        result=await add_Expression(id,turma,matricula,update,emotion,data);  
+        console.log(result[0]!=null?result[0]:"")
       }
-   
-     result=await updateAluno(turma,matricula,update,emotion,data);  
 
-     console.log(result[0]!=null?result[0]:"")
-
-}
-
-async function deleteCollections(){
-    result= await deleteAll();
-    console.log(result==true?"delete ok":"error no delete")
-}
-
-
-async function addTurma_(){
-
-    nomeTurma="tcc-wpewepxcmmcxxaabbwwww"  
-    turno="noite"
-    descricao="disciplina de TCC"
-    datacreate="04-12-2021"
-    turma={ 
+     
         
-        "turno":turno,
-        "descricao":descricao,
-        "alunos":[{}]
-          
+    } catch (error) {
+        console,log(error)
         
     }
 
-
-    result= await addTurma(turma,nomeTurma);
-    console.log(result)
 }
+
+//adicinar token da aula  na disciplina
 async function addToken_(turma,token){
-    await addToken(turma,token)
+    result=await addToken(turma,token)
+    console.log(result)
     
 }
-///
-async function addCollection(){
-    newcollection()
 
-} 
-async function validateToken(token){
+async function validateToken(token){//***/
     try {
         valid=false
         result=await getAll()
@@ -115,11 +100,27 @@ async function validateToken(token){
     
 
 
-
 }
 
 
-module.exports = {validateToken}
+function addEmotion(array){
+
+ for(var i=0;i<array["resultJson"].length;i++){
+    var objeto = JSON.parse(array["resultJson"][i])
+    try {
+        addExpression(objeto.expression, objeto.matricula,objeto.token,objeto.porcentagem,objeto.hora, objeto.minutos,objeto.segundos)
+    } catch (error) {
+        console.log(error)
+    }
+    
+
+ }   
+
+
+
+}
+
+module.exports = {validateToken,addToken_,addEmotion}
     
 
 

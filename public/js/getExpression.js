@@ -4,7 +4,7 @@
 
 function Expression(){
   document.getElementById('local-player').srcObject = myStream
-    resultJson=""
+    resultJson=[]
     sendTime=10000
     video = document.getElementById("local-player")
   
@@ -32,7 +32,7 @@ function Expression(){
             if(localStorage.getItem("status")==="start"){
               console.log("gravando")
 
-            resultJson+=JSON.stringify(
+            resultJson.push(JSON.stringify(
               { "token":localStorage.getItem('inputTokenAluno'),
                 "matricula":localStorage.getItem('matricula_aluno'),
                 "expression":expression,
@@ -40,7 +40,7 @@ function Expression(){
                 "hora": new Date().getHours(),
                 "minutos":new Date().getMinutes(),
                 "segundos":new Date().getSeconds()
-               });
+               }))
 
             }else{
               console.log("gravação pausada")
@@ -62,7 +62,7 @@ function Expression(){
           }
           // console.log(resultJson.length)
           console.log(resultJson)
-          resultJson=""
+          resultJson=[]
          }     
 
         },sendTime);

@@ -1,11 +1,11 @@
-const connect = require("./db")
+const connectFacefacs = require("./db_facefacs")
+const connectTokens = require("./db_tokens")
 
 
 const getAll = async () =>
 {
    try {
-    const db = await connect();
-    // const result = db.collection('expressions').find().toArray();
+    const db = await connectTokens();    
     const result = db.collection('tokensProf').find().toArray();
     return result;
 
@@ -14,18 +14,18 @@ const getAll = async () =>
    }
 }
 
-const updateAluno = async (turma,matricula,update,emotion,data) =>
+const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 {
     
     try {
 
-    const db = await connect();
+    const db = await connectFacefacs();
     updateAluno_=""+[turma]+".alunos.$[]."+[data]+"."+[matricula]+"."+[emotion]
     
     
 
     const insert = await db.collection('expressions').updateOne(
-        { "id": "abcdefg" }, {
+        { "id":`${id}`}, {
             $push: {
 
             [updateAluno_]:update
@@ -47,24 +47,11 @@ const updateAluno = async (turma,matricula,update,emotion,data) =>
 }
 
 
-const deleteAll = async () =>
-{
-    try {
-      const db = await connect();
-      const result = await db.collection('expressions').drop();
-    return true;
-    } catch (error) {
-        console.log(error)
-        return false
-    }
-
-}
-
-
 const addTurma = async (turma,nomeTurma) =>
 {
      try {
         const db = await connect();
+        
         result=await db.collection('expressions').find().toArray();
             
             const insert = await db.collection('expressions').updateOne(
@@ -81,8 +68,10 @@ const addTurma = async (turma,nomeTurma) =>
      }    
 
 }
+//adicionar token em disciplina
 const addToken=async (turma,token) =>{    
-    const db = await connect();   
+    const db = await connectTokens();   
+    const result = db.collection('tokensProf').find().toArray();
     addToken_="tokens.$[]."+[turma] 
     const insert = await db.collection('tokensProf').updateOne(
         { "_id": "tokensId" }, {
@@ -95,36 +84,11 @@ const addToken=async (turma,token) =>{
 
     )
 
-    console.log(result)
-
-}
-///criar coleção
-const newcollection=async () =>{
-    const db = await connect();
-    result=await db.collection('expressions').insertOne({ "_id": "20171cxcc0308"})
-    console.log(result)
-
-    add()
-
-}
-const add=async () =>{
-    console.log("pppppppppp")
-    const db = await connect();    
-    const insert = await db.collection('expressions').updateOne(
-        { "_id": "20171cxcc0308" }, {
-            $push: {
-
-            ["alunos"]:{}
-
-            }
-    }
-
-    )
-
-    console.log(result)
+    return result
 
 }
 
 
 
-module.exports = { getAll, updateAluno, deleteAll,addTurma,newcollection,addToken}
+
+module.exports = { getAll,add_Expression,addTurma,addToken}
