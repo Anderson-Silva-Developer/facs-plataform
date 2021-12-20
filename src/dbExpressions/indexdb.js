@@ -12,9 +12,13 @@ const mock=require("./result")
     
 }
 function isToken(list,token_aula){
+    try {        
+   
     turmaResult=""
     id=""
+    if(list["tokens"][0]!=null){
     list1=(Object.keys(list["tokens"][0]))
+    
     for(var i=0;i<list1.length;i++){
        turma=list1[i]
        list_token=list["tokens"][0][turma]
@@ -24,9 +28,17 @@ function isToken(list,token_aula){
                 id=(list_token[0]["id"])                
                 break
             }
-       }  
+       } 
+        
        
     }  
+}
+    
+} catch (error) {
+
+    console.log(error)
+        
+}
 
     result=[]
     result.push(turmaResult)

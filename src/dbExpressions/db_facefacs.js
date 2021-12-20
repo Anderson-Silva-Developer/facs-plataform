@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
-require("dotenv")
+
 // const MONGO_DB_URL = 'mongodb://127.0.0.1:27017';
-const MONGO_DB_URL = 'mongodb+srv://AndersonSpider:legiao100@cluster0.a1x7f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MONGO_DB_URL = "mongodb+srv://AndersonSpider:legiao100@cluster0.a1x7f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 const DB_NAME = 'facefacs';
 

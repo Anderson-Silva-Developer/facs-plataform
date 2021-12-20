@@ -14,7 +14,7 @@ require('./SocketService')(http)
 
 class App {
     constructor(port) {
-        this.port = port ? port : 3001
+        this.port = port ? port : 3000
     }
      
 
@@ -46,8 +46,7 @@ class App {
         app.put('/json',(req,res)=>{
         try {
             console.log(req.body)            
-            addEmotion(req.body)
-            
+            addEmotion(req.body)            
 
           res.send("ok")
         } catch (error) {
