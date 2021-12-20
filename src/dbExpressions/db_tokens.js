@@ -1,6 +1,7 @@
 const { MongoClient } = require('mongodb');
+require("dotenv")
 
-const MONGO_DB_URL = 'mongodb+srv://AndersonSpider:legiao100@cluster0.a1x7f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MONGO_DB_URL = process.env.APP_URL;
 const DB_NAME = 'tokens';
 
 const connection = () => MongoClient
