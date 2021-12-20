@@ -45,7 +45,7 @@ class App {
         //save emotions
         app.put('/json',(req,res)=>{
         try {
-            console.log(req.body)            
+                       
             addEmotion(req.body)            
 
           res.send("ok")
@@ -123,14 +123,7 @@ class App {
             
         })
 
-
-
-
-
         ////
-
-
-
 
             
         app.use(express.static('public'))

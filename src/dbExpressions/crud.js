@@ -5,11 +5,13 @@ const connectTokens = require("./db_tokens")
 const getAll = async () =>
 {
    try {
+   
     const db = await connectTokens();    
     const result = db.collection('tokensProf').find().toArray();
     return result;
 
    } catch (error) {
+    
        console.log(error)
    }
 }
@@ -20,6 +22,8 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     try {
 
     const db = await connectFacefacs();
+   
+
     updateAluno_=""+[turma]+".alunos.$[]."+[data]+"."+[matricula]+"."+[emotion]
     
     
@@ -48,7 +52,8 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 
 
 //adicionar token em disciplina
-const addToken=async (turma,token) =>{    
+const addToken=async (turma,token) =>{ 
+     
     const db = await connectTokens();   
     const result = db.collection('tokensProf').find().toArray();
     addToken_="tokens.$[]."+[turma] 
@@ -62,6 +67,8 @@ const addToken=async (turma,token) =>{
     }
 
     )
+    
+   
 
     return result
 

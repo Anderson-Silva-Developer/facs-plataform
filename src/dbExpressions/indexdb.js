@@ -5,24 +5,26 @@ const mock=require("./result")
  async function getClass(token){
 
     result=await getAll()
-    list=result[0]
+    list=result[0]    
     result=isToken(list,token)
 
     return result
     
 }
-function isToken(list,token_aula){
+function isToken(list,token_aula){   
+    
     try {        
    
     turmaResult=""
-    id=""
-    if(list["tokens"][0]!=null){
-    list1=(Object.keys(list["tokens"][0]))
-    
+    id=""   
+    list1=(Object.keys(list["tokens"][0]))  
+
     for(var i=0;i<list1.length;i++){
        turma=list1[i]
        list_token=list["tokens"][0][turma]
-       for(var k=0;k<list_token.length;k++){
+
+       for(var k=0;k<list_token.length;k++){          
+          
             if(list_token[k]["token-aula"]===token_aula){
                 turmaResult=turma
                 id=(list_token[0]["id"])                
@@ -31,7 +33,7 @@ function isToken(list,token_aula){
        } 
         
        
-    }  
+    
 }
     
 } catch (error) {
@@ -51,13 +53,11 @@ function isToken(list,token_aula){
  async function addExpression(emotion,matricula,token_aula,pct,h,m,s){    
    
     try {
-
-     array=await getClass(token_aula)
-     turma=array[0]
-     id=array[1]
     
+     array=await getClass(token_aula) 
+     turma=array[0]
+     id=array[1]    
     let data = moment().format("DD/MM/YYYY");  
-
     update={   
               
         "porcentagem":pct,
@@ -67,11 +67,10 @@ function isToken(list,token_aula){
           
       }  
  
-      if(turma && id){
-         
+      if(turma && id){         
 
         result=await add_Expression(id,turma,matricula,update,emotion,data);  
-        console.log(result[0]!=null?result[0]:"")
+        
       }
 
      
@@ -86,7 +85,7 @@ function isToken(list,token_aula){
 //adicinar token da aula  na disciplina
 async function addToken_(turma,token){
     result=await addToken(turma,token)
-    console.log(result)
+    
     
 }
 
@@ -137,11 +136,8 @@ async function get_Report(token)
     array=await getClass(token)
     turma=array[0]
     id=array[1]
-    let data = moment().format("DD/MM/YYYY");  
+    let data = moment().format("DD/MM/YYYY");     
     
-    // turma = "web-wpewepxcmmcxxaabbwwww"
-    // id = "20171cxcc0325"
-    // data="10-09-29"
     var qtdMatriculas=1
     var sumEmotions=0
     var sumDuvida=0
@@ -247,8 +243,8 @@ async function get_Report(token)
     for(var i=0;i<arrayMediaInd.length;i++){         
     
         valor =parseFloat(arrayMediaInd[i].sad)+parseFloat(arrayMediaInd[i].angry)
-        arrayMediaInd[i].duvida =parseFloat(valor.toFixed(2))
-       
+        arrayMediaInd[i].duvida =parseFloat(valor.toFixed(2))/2
+        
     }
     
     
@@ -269,7 +265,7 @@ async function get_Report(token)
     emotions.set("duvida",sumDuvida.toFixed(2))
 
 
-    // console.log(emotions)
+  
 
     dataEmotions=[]
     dataEmotions.push(emotions)

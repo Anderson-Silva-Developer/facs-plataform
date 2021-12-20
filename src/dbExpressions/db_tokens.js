@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
+require("dotenv").config()
 
-
-const MONGO_DB_URL = "mongodb+srv://AndersonSpider:legiao100@cluster0.a1x7f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const MONGO_DB_URL =process.env.APP_URLTOKEN;
 const DB_NAME = 'tokens';
 
 const connection = () => MongoClient
@@ -10,7 +10,7 @@ const connection = () => MongoClient
     useUnifiedTopology: true,
   })
   .then((conn) => conn.db(DB_NAME))
-  .catch((err) => {
+  .catch((err) => {   
     console.error(err);
     process.exit(1);
   });
