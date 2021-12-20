@@ -1,5 +1,6 @@
-const {getAll,addToken, add_Expression} = require("./crud")
+const {getAll,addToken, add_Expression,getReport} = require("./crud")
 const moment = require("moment")
+const mock=require("./result")
  
  async function getClass(token){
 
@@ -53,7 +54,7 @@ function isToken(list,token_aula){
         "segundos":s          
           
       }  
-      console.log(turma+" ************************** :"+id) 
+ 
       if(turma && id){
          
 
@@ -119,8 +120,173 @@ function addEmotion(array){
 
 
 }
+async function get_Report(token)
+{
+    array=await getClass(token)
+    turma=array[0]
+    id=array[1]
+    let data = moment().format("DD/MM/YYYY");  
+    
+    // turma = "web-wpewepxcmmcxxaabbwwww"
+    // id = "20171cxcc0325"
+    // data="10-09-29"
+    var qtdMatriculas=1
+    var sumEmotions=0
+    var sumDuvida=0
+    var emotions=new Map();
+    emotions.set("neutral",0) 
+    emotions.set("happy",0) 
+    emotions.set("sad",0) 
+    emotions.set("angry",0)  
+    emotions.set("fearful",0)
+    emotions.set("disgusted",0)      
+    emotions.set("surprised",0) 
+    emotions.set("duvida",0)
 
-module.exports = {validateToken,addToken_,addEmotion}
+    var infoTurma=new Map();
+
+    infoTurma.set("data",data)
+    infoTurma.set("turma",turma)
+
+    var arrayMediaInd=[]    
+    
+    result = await getReport(id)
+    // result=[mock]
+      
+
+    if (result)
+    {
+        array = result[0][turma]["alunos"]
+        
+
+        for (var i = 0; i < array.length; i++)
+        {   
+            listday=array[i][data]
+            if(listday==null){
+                
+                break
+            }           
+            arrayExpressions = Object.keys(listday)       
+            
+
+            if (arrayExpressions)
+            {  
+                
+                qtdMatriculas=arrayExpressions.length
+                arrayExpressions.forEach(matricula =>
+                {
+                    
+                    arrayemotions=(array[i][data][matricula])    
+                    
+                     //selecionar pela data
+                     
+                     var ob=createObject()
+                     ob.matricula=matricula         
+
+                    for (var [key, value] of emotions) {                    
+                        
+                        if(arrayemotions[key]){ 
+                        
+                        ob[key]=(arrayemotions[key].length)      
+                         newvalue=((arrayemotions[key].length)+value)                                             
+                         emotions.set(key,newvalue)  
+                         
+                         
+
+                        }
+                      }
+                      arrayMediaInd.push(ob)
+                                 
+
+                });
+            }
+
+        }
+        
+        
+    }
+    
+    
+    for (var [key,value] of emotions) {        
+        sumEmotions+=value 
+          
+    }
+    
+    //criar media individual
+    
+    for(var i=0;i<arrayMediaInd.length;i++){       
+
+       for (var [key,value] of emotions) { 
+            if(key!="duvida"){                
+                if(value>0){
+                newValue=((arrayMediaInd[i][key])*100)/value                
+                arrayMediaInd[i][key]= parseFloat(newValue.toFixed(2))
+                
+                }
+
+                
+            }   
+
+        }
+
+    }
+    
+   
+    for(var i=0;i<arrayMediaInd.length;i++){         
+    
+        valor =parseFloat(arrayMediaInd[i].sad)+parseFloat(arrayMediaInd[i].angry)
+        arrayMediaInd[i].duvida =parseFloat(valor.toFixed(2))
+       
+    }
+    
+    
+    //
+
+    for (var [key,value] of emotions) { 
+
+        var pc=(value*100)/sumEmotions
+        emotions.set(key,pc.toFixed(2))
+        
+        if(key=="sad" || key=="angry"){            
+            sumDuvida+=pc
+        }      
+               
+    }
+    
+
+    emotions.set("duvida",sumDuvida.toFixed(2))
+
+
+    // console.log(emotions)
+
+    dataEmotions=[]
+    dataEmotions.push(emotions)
+    dataEmotions.push(infoTurma)
+    dataEmotions.push(arrayMediaInd)
+
+   
+    
+    return dataEmotions
+
+}
+
+function createObject(){
+    ob={
+        matricula:"",
+        neutral:0,
+        happy:0,
+        sad:0,
+        angry:0,
+        fearful:0,
+        disgusted:0,
+        surprised:0,
+        duvida:0
+    }
+    return ob
+
+}
+
+module.exports = {validateToken,addToken_,addEmotion,get_Report}
     
 
 

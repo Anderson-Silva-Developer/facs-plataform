@@ -47,27 +47,6 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 }
 
 
-const addTurma = async (turma,nomeTurma) =>
-{
-     try {
-        const db = await connect();
-        
-        result=await db.collection('expressions').find().toArray();
-            
-            const insert = await db.collection('expressions').updateOne(
-                { "id": "abcdefg" }, {
-                    $set: {[nomeTurma]:turma}//adicinar Turma
-            }
-            
-            )
-    
-        return result
-
-     } catch (error) {
-         console.log(error)
-     }    
-
-}
 //adicionar token em disciplina
 const addToken=async (turma,token) =>{    
     const db = await connectTokens();   
@@ -88,7 +67,13 @@ const addToken=async (turma,token) =>{
 
 }
 
+const getReport=async(id_)=>{
+    const db = await connectFacefacs();
+    result=await db.collection('expressions').find({id:id_}).toArray();
+    return result
 
 
+}
 
-module.exports = { getAll,add_Expression,addTurma,addToken}
+
+module.exports = { getAll,add_Expression,addToken,getReport}

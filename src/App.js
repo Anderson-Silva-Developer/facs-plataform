@@ -3,7 +3,11 @@ const express = require('express')
 const app = express()
 const http = require('http').createServer(app)
 const fs=require("fs")
-const {validateToken,addToken_,addEmotion} = require("../src/dbExpressions/indexdb")
+const ejs=require("ejs")
+const path=require("path")
+const pdf=require("html-pdf")
+const {validateToken,addToken_,addEmotion,get_Report} = require("../src/dbExpressions/indexdb")
+const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
@@ -53,7 +57,7 @@ class App {
         })
         app.post('/getToken',(req,res)=>{                         
             if(validateToken(req.body.token)){
-                const token=jwt.sign({userId:1},SECRET,{expiresIn:3600})                
+                const token=jwt.sign({userId:1},SECRET,{expiresIn:86400})                
                 addToken_(req.body.token,token)//add token in room
                 return res.json({auth:true,token})
 
@@ -63,6 +67,72 @@ class App {
                      
                      
         }) 
+        ///////
+        app.get("/report",async (req,res)=>{    
+            try {                
+                const token=req.headers['x-access-token']
+                
+                var  arrayResult=await get_Report(token)
+                if(arrayResult){
+                var emotions=arrayResult[0]
+                var inforTurma=arrayResult[1]
+                var arrayMediaInd=arrayResult[2]              
+                                       
+                if(emotions){     
+                        
+                const filePath = path.join(__dirname, "../views/print.ejs") 
+                       
+                ejs.renderFile(filePath,{emotions,inforTurma,arrayMediaInd},{},(err,html)=>{
+                        if(err){
+                            return  res.send("Error")
+                        }
+                        const options = {
+                            height: "11.25in",
+                            width: "8.5in",
+                            header: {
+                                height: "20mm"
+                            },
+                            footer: {
+                                height: "20mm"
+                            }
+                        }
+                
+                        // criar o pdf
+                        pdf.create(html, options).toFile("report.pdf",(err, data)=> {
+                            if (err) {
+                                return res.send("Erro ao gerar o PDF" +err)
+                            }                   
+                           
+                            sendEmail()                  
+                            // return res.send(html)
+                            
+                         })
+                         return res.send("ok")
+           
+           
+                    }
+                )
+                }
+            }
+                
+            } catch (error) {
+                console.log(error)
+                
+            }
+        
+          
+            
+        })
+
+
+
+
+
+        ////
+
+
+
+
             
         app.use(express.static('public'))
                 

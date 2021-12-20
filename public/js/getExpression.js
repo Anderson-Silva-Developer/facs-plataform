@@ -5,7 +5,7 @@
 function Expression(){
   document.getElementById('local-player').srcObject = myStream
     resultJson=[]
-    sendTime=10000
+    sendTime=120000
     video = document.getElementById("local-player")
   
   
@@ -30,7 +30,7 @@ function Expression(){
 
             });    
             if(localStorage.getItem("status")==="start"){
-              console.log("gravando")
+              // console.log("gravando")
 
             resultJson.push(JSON.stringify(
               { "token":localStorage.getItem('inputTokenAluno'),
@@ -48,7 +48,7 @@ function Expression(){
                
           
         } catch (error) {
-            console.log("não definida")
+            console.log("")
         }
 
         },5000);
@@ -60,8 +60,7 @@ function Expression(){
           }else{
             console.log(" post: gravação pausada")
           }
-          // console.log(resultJson.length)
-          console.log(resultJson)
+          
           resultJson=[]
          }     
 

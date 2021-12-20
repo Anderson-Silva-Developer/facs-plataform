@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('leave').addEventListener('click', leave) 
     document.getElementById('start').addEventListener('click',sendStart)
     document.getElementById('stop').addEventListener('click',sendStop)
+    document.getElementById('send').addEventListener('click',sendReport)
    
     enterInRoom ()
 
@@ -151,4 +152,27 @@ function statusAula(status){
     }
 
 }
+
+function sendReport(){   
+    token=localStorage.getItem("token_aula")  
+    if(token){
+    const options = {
+        url:"/report",
+        method: 'GET',
+        headers: {
+          'x-access-token':token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }            
+        
+      };
+      result = axios(options)
+        .then(response => {         
+          console.log(response.status)
+        })
+        // alert("Relatório em processo!!")
+    }   
+    
+    
+  }
 
