@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.FormSelect.init(elems,{});  
     document.getElementById('loginForm').addEventListener('submit',pageOpcao)
 
-    if((localStorage.getItem("token_aula")) && (localStorage.getItem("token_prof")) && (localStorage.getItem("matricula_professor")) && (localStorage.getItem("gravando"))){ 
+    if((localStorage.getItem("token_aula")) && (localStorage.getItem("token_prof")) && (localStorage.getItem("gravando"))){ 
         alert("já existe login em andamento!!")  
         window.location.replace("./sala_prof.html");
     }
 },false);
 
 
-function pageOpcao(e)
+ function pageOpcao(e)
 {
      
     e.preventDefault()
@@ -22,9 +22,9 @@ function pageOpcao(e)
     
     if(opUser==1){ 
         try { 
-               if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("matricula_professor")) && !(localStorage.getItem("gravando"))){
+               if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("gravando"))){
 
-                matricula=document.getElementById("matricula").value   
+                 
                 var file_token_aula = document.getElementById("inputToken").files[0];
                 var file_token_prof= document.getElementById("inputTokenProf").files[0];
                 var fileread = new FileReader();
@@ -33,28 +33,37 @@ function pageOpcao(e)
                 fileread.onload = function(e) {  
                                     
                   var content = e.target.result;
-                  var intern = JSON.parse(content);  
+                  var intern = JSON.parse(content); 
+
                   localStorage.setItem('token_aula',intern.token);                                               
 
                 };
-                fileread1.onload =function(e) {  
+                fileread1.onload =async function(e) {  
                                      
                   var content = e.target.result;
-                  var intern = JSON.parse(content);
-                                
-                localStorage.setItem('token_prof',intern.token);  
-                localStorage.setItem('matricula_professor',matricula);
-                localStorage.setItem('gravando',"off");
-
-                window.location.replace("./sala_prof.html");                     
-                  
-                };
+                  var intern = JSON.parse(content);            
                 
+                 
+                if(await isAuth(intern.token,localStorage.getItem("token_aula")) ){
+                    
+                    localStorage.setItem('token_prof',intern.token);                    
+                    localStorage.setItem('gravando',"off");
+                    window.location.replace("./sala_prof.html"); 
+                    
+                    
+
+                }else{
+                    alert("token professor ou token aula inválido inválido")
+                    localStorage.clear()
+                    window.location.replace("./opcoes_professor.html"); 
+
+                }
+                
+               
+                };
                 fileread.readAsText(file_token_aula); 
                 fileread1.readAsText(file_token_prof);
                 
-
-            
             }                  
       
         } catch (error) {
@@ -64,15 +73,11 @@ function pageOpcao(e)
       
     }
     if(opUser==2){
-        if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("matricula_professor")) && !(localStorage.getItem("gravando"))){
+        if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("gravando"))){
             window.location.replace("./criar_aula.html");  
         }else{
             alert("Erro")
-            console.log(localStorage.getItem("token_aula"))
-            console.log(localStorage.getItem("token_prof"))
-            console.log(localStorage.getItem("matricula_professor"))
-            console.log(localStorage.getItem("gravando"))
-        }
+         }
 
 
  
@@ -87,7 +92,7 @@ if(opcao.value==2){
     try {
         document.getElementById("inputToken").required = false;
         document.getElementById("inputTokenProf").required=false;
-        document.getElementById("matricula").required = false;
+        
        
         hidePanel("optionProf")
     } catch (error) {
@@ -99,7 +104,7 @@ if(opcao.value==1){
     showPanel("optionProf")
     document.getElementById("inputToken").required = true;
     document.getElementById("inputTokenProf").required=true;
-    document.getElementById("matricula").required = true;
+
 
 }
 
@@ -114,3 +119,23 @@ function showPanel(name) {
 
 
 }
+function isAuth(token_prof,token_aula){ 
+    
+    const options = {
+      url: "/isValid",
+      method: 'GET',
+      headers: {
+        'x-access-token-prof':token_prof,
+        'x-access-token-aula':token_aula,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }            
+      
+    };
+   result = axios(options)
+      .then(response => {         
+        return response['data']['auth']
+      })
+    
+    return result
+  }

@@ -78,12 +78,12 @@ function initServerConnection(token_aula) {
 }
 function enterInRoom () {
 
-    matricula_professor=localStorage.getItem("matricula_professor")
+    
     token_prof=localStorage.getItem("token_prof")
     token_aula=localStorage.getItem("token_aula")
     status_aula=localStorage.getItem("gravando")
 
-    if (token_prof && token_aula && matricula_professor && status_aula) {       
+    if (token_prof && token_aula && status_aula) {       
         socket = initServerConnection(token_aula)        
     }
 
@@ -175,4 +175,3 @@ function sendReport(){
     
     
   }
-

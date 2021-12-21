@@ -1,4 +1,4 @@
-const {getAll,addToken, add_Expression,getReport} = require("./crud")
+const {getAll,addToken, add_Expression,getReport,isTokenRoom} = require("./crud")
 const moment = require("moment")
 const mock=require("./result")
  
@@ -93,10 +93,11 @@ async function validateToken(token){//***/
     try {
         valid=false
         result=await getAll()
+       
         list=(Object.keys(result[0]["tokens"][0]))
-        for(var i=0;i<list.length;i++){            
-            if(list[i]==token){
-            console.log(token+" é valido")
+        for(var i=0;i<list.length;i++){  
+                                 
+            if(list[i]==token){            
             valid=true
             }
         
@@ -293,8 +294,39 @@ function createObject(){
     return ob
 
 }
+//validar token professor e token aula
+async function getisTokenRoom(token_prof,token_aula){
+    
+    try {
+        valid=false
+        result=await getAll()
+       
+        list=(Object.keys(result[0]["tokens"][0]))
+        for(var i=0;i<list.length;i++){                                  
+            if(list[i]==token_prof){
 
-module.exports = {validateToken,addToken_,addEmotion,get_Report}
+             tokensList=result[0]["tokens"][0][list[i]]
+             resultToken =tokensList.filter(item=> item["token-aula"]==token_aula)    
+             if(resultToken) {valid=true}  
+           
+            }
+        
+        }
+        console.log(valid)
+        return valid
+
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+
+    
+
+}
+
+module.exports = {validateToken,addToken_,addEmotion,get_Report,getisTokenRoom}
     
 
 

@@ -12,7 +12,7 @@ function getToken(e){
         try { 
              
 
-                matricula=document.getElementById("matricula").value  
+                
                               
                 var file_token_prof= document.getElementById("inputTokenProf").files[0];
                 var fileread = new FileReader();
@@ -22,7 +22,7 @@ function getToken(e){
                   var content = e.target.result;
                   var intern = JSON.parse(content);                              
                  
-                 getTokenAula(matricula,intern.token)                           
+                 getTokenAula(intern.token)                           
                   
                 };                
                  
@@ -36,19 +36,19 @@ function getToken(e){
         }
      
 }
-function getTokenAula(matricula,token){ 
+function getTokenAula(token){ 
        
     const options = {
         url: "/getToken",
         method: 'POST',       
-        data:{
-            matricula:matricula,
+        data:{           
             token:token
         },        
         
       };
     axios(options)
-      .then(response => {        
+      .then(response => {   
+          if(response["data"]["auth"]==true){     
         let data ={"token":response['data']['token']};        
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
         var dlAnchorElem = document.getElementById('downloadAnchorElem');
@@ -56,9 +56,11 @@ function getTokenAula(matricula,token){
         dlAnchorElem.setAttribute("download", "token_aula.json");
         dlAnchorElem.click();
         window.location.replace("./opcoes_professor.html"); 
+          }else{
+              alert("não Autorização")
+          }
                
       });
       
   
   }
-

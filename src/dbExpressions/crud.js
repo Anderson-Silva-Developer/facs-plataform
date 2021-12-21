@@ -73,6 +73,19 @@ const addToken=async (turma,token) =>{
     return result
 
 }
+//// verificar existencia de token daconst 
+isTokenRoom=async (turma) =>{ 
+     
+    const db = await connectTokens();   
+    const result = db.collection('tokensProf').find().toArray();
+      
+
+    return result
+
+}
+
+
+
 
 const getReport=async(id_)=>{
     const db = await connectFacefacs();
@@ -83,4 +96,4 @@ const getReport=async(id_)=>{
 }
 
 
-module.exports = { getAll,add_Expression,addToken,getReport}
+module.exports = { getAll,add_Expression,addToken,getReport,isTokenRoom}

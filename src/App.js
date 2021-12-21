@@ -6,7 +6,7 @@ const fs=require("fs")
 const ejs=require("ejs")
 const path=require("path")
 const pdf=require("html-pdf")
-const {validateToken,addToken_,addEmotion,get_Report} = require("../src/dbExpressions/indexdb")
+const {validateToken,addToken_,addEmotion,get_Report,getisTokenRoom} = require("../src/dbExpressions/indexdb")
 const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
@@ -54,18 +54,45 @@ class App {
         }          
           
         })
-        app.post('/getToken',(req,res)=>{                         
-            if(validateToken(req.body.token)){
+        app.post('/getToken',async(req,res)=>{  
+            var isvalid=await validateToken(req.body.token)   
+                                
+            if(isvalid){                
                 const token=jwt.sign({userId:1},SECRET,{expiresIn:86400})                
                 addToken_(req.body.token,token)//add token in room
+
                 return res.json({auth:true,token})
 
             }else{
-                res.status(401).end()
+                res.json({auth:false})
             }
                      
                      
         }) 
+        app.get('/isValid',async(req,res)=>{  
+            try {
+            var isvalid=await validateToken(req.headers['x-access-token-prof'])            
+            var tokenAula=req.headers['x-access-token-aula']
+               
+
+             
+            if(isvalid){
+                var isTokenValid= await getisTokenRoom(req.headers['x-access-token-prof'],tokenAula)
+                if(isTokenValid){
+                    res.json({auth:true})
+                }else{
+                    res.json({auth:false})
+                }                
+            }else{
+                res.json({auth:false})
+            }
+                
+            } catch (error) {
+                res.json({auth:false})
+            }            
+            
+
+        })
         ///////
         app.get("/report",async (req,res)=>{    
             try {                
@@ -103,7 +130,7 @@ class App {
                             }                   
                            
                             sendEmail()                  
-                            // return res.send(html)
+                            
                             
                          })
                          return res.send("ok")
