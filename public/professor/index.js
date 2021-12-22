@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('start').addEventListener('click',sendStart)
     document.getElementById('stop').addEventListener('click',sendStop)
     document.getElementById('send').addEventListener('click',sendReport)
-   
+       
     enterInRoom ()
 
 },false);
@@ -111,7 +111,8 @@ function addAluno(matricula){
     try {
         var template = new DOMParser().parseFromString(`<a id="${matricula}"class="collection-item">${matricula}<span class="badge green"></span></a>`, 'text/html')
         var  list = template.body.childNodes[0]        
-        alunos=document.getElementById('addAluno').appendChild(list)
+        document.getElementById('addAluno').appendChild(list)
+        alunos=document.getElementById('addAluno')        
         document.getElementById('qtAlunos').innerHTML= alunos.childElementCount
         
     } catch (error) {
@@ -126,6 +127,7 @@ function removeAluno(matricula){
         if(document.getElementById(`${matricula}`)){
             document.getElementById(`${matricula}`).remove()
             alunos=document.getElementById('addAluno')
+            console.log(alunos.childElementCount)
             document.getElementById('qtAlunos').innerHTML= alunos.childElementCount
         }       
     } catch (error) {
@@ -178,3 +180,4 @@ function sendReport(){
     
     
   }
+
