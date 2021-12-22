@@ -104,13 +104,13 @@ function initServerConnection(token,matricula) {
         leave()
     })
     socket.on('start',function(msg){
-        console.log("mansagem recebida "+msg)
+        console.log(msg)
         localStorage.setItem("status","start")
         socket.emit('feedback_start',matricula)
         
      })
      socket.on('stop',function(msg){
-        console.log("mansagem recebida "+msg)
+        console.log(msg)
         localStorage.setItem("status","stop")
         
      })
