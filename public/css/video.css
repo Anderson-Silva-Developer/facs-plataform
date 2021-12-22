@@ -1,7 +1,7 @@
 .videoWrapper {
     display: flex;
-    /* position: relative;
-    padding-bottom: 75%;
+     position: relative;
+    /*padding-bottom: 75%;
     height: 0;   */
        
 }
@@ -19,12 +19,16 @@ body {
     background-size: cover;
     background-attachment: fixed; */
 }
+#reportText{
+    margin-bottom:2px;
+}
 
  #node-video{ 
+    display: inline-block;
     position:absolute;
     background-color:white;
-    width:90%;
-    height: 65%; 
+    width:100%;
+    height:100%; 
     /* background-image: url("/img/fundo.jpg");
     background-size: cover;
     background-attachment: fixed; */

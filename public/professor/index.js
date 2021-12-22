@@ -111,7 +111,8 @@ function addAluno(matricula){
     try {
         var template = new DOMParser().parseFromString(`<a id="${matricula}"class="collection-item">${matricula}<span class="badge green"></span></a>`, 'text/html')
         var  list = template.body.childNodes[0]        
-        document.getElementById('addAluno').appendChild(list)
+        alunos=document.getElementById('addAluno').appendChild(list)
+        document.getElementById('qtAlunos').innerHTML= alunos.childElementCount
         
     } catch (error) {
         console.log(error)
@@ -124,6 +125,8 @@ function removeAluno(matricula){
     try {
         if(document.getElementById(`${matricula}`)){
             document.getElementById(`${matricula}`).remove()
+            alunos=document.getElementById('addAluno')
+            document.getElementById('qtAlunos').innerHTML= alunos.childElementCount
         }       
     } catch (error) {
         console.log(error)

@@ -14,9 +14,10 @@
         <div class="col s12"> 
             <div id="statusAula" >
                 <div id="offCam" class="btn-floating gray "><i class="material-icons">videocam_off</i></div>
-            </div>
+            </div>           
 
-            <div class="card" style="margin-top:50px;">               
+            <div class="card"> 
+                              
                 <div class="card-action teal lighten-1 white-text">
 
                     <nav>
@@ -41,20 +42,21 @@
                                 class="waves-effect waves-light btn-small">pausa</button>
                         </div>                                              
 
-                    </div>                    
+                    </div>  
+                    <p id="reportText"> gerar relatório da aula</p>
+                <button id="send" type="btn" style="width: 80%;"class="waves-effect waves-light btn-small red">mandar relatório</button>                  
 
                 </div>
-                <p>apenas quando terminar a aula</p>
-                <button id="send" type="btn" style="width: 80%;"class="waves-effect waves-light btn-small red">mandar relatório</button>
+                
             </div>
 
-        </div>
-        <!-- ==================== -->
+        </div> 
+        
         <ul class="collapsible">
             <li>
                 <div id="alunos" class="collapsible-header">
                     <i class="material-icons">filter_drama</i>
-                    Alunos
+                    Alunos : <div id="qtAlunos">0</div> 
                
                 </div>
                 <div id="list" class="collapsible-body">
