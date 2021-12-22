@@ -40,7 +40,7 @@ function pageOpcao(e)
                   var intern = JSON.parse(content);
                   console.log(intern.token)
                   localStorage.setItem('inputTokenAluno',intern.token);
-                  localStorage.setItem('matricula_aluno',matricula); 
+                  localStorage.setItem('matricula_aluno',matricula);                   
                   window.location.replace("../aluno/sala_aluno.html");
                       
 

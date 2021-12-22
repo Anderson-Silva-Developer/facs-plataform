@@ -6,6 +6,12 @@ const url= "/auth"
 
 window.onbeforeunload = function() { return "Your work will be lost."; };
 document.addEventListener('DOMContentLoaded', function() {  
+
+ if(!localStorage.getItem("matricula_aluno") && !localStorage.getItem("inputTokenAluno")){ 
+    window.location.replace("../index.html");
+
+ }
+
     if(!localStorage.getItem("status")){
         localStorage.setItem("status","pause")
       
