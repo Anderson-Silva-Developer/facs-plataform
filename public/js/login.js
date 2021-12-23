@@ -1,5 +1,33 @@
 
 document.addEventListener('DOMContentLoaded', function() {  
+  const inputMatricula=document.getElementById("matricula")
+  inputMatricula.addEventListener("paste",function(e){
+    e.preventDefault()
+  }) 
+
+  inputMatricula.addEventListener("keypress",function(e){
+      if(!checkChar(e)){
+        inputMatricula.style.color="red"
+          e.preventDefault()
+
+      }else{
+        inputMatricula.style.color="black"
+      }
+
+  })
+  function checkChar(e){
+      const char=String.fromCharCode(e.keyCode)
+      
+      pattern="[a-zA-Z0-9]"
+      if(char.match(pattern)){       
+          return true
+      }
+  }
+
+
+
+
+
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems,{});      
     document.getElementById('loginForm').addEventListener('submit',pageOpcao)

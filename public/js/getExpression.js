@@ -42,9 +42,10 @@ function Expression(){
                 "segundos":new Date().getSeconds()
                }))
 
-            }else{
-              console.log("gravação pausada")
-            }   
+            }
+            // else{
+            //   console.log("gravação pausada")
+            // }   
                
           
         } catch (error) {

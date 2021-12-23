@@ -1,6 +1,12 @@
 
 var socket
 document.addEventListener('DOMContentLoaded', function() {  
+
+    if(!(localStorage.getItem("token_aula")) && !(localStorage.getItem("token_prof")) && !(localStorage.getItem("gravando"))){
+        window.location.replace("./opcoes_professor.html"); 
+    }
+
+
     var elems = document.querySelectorAll('.collapsible');
     var instances = M.Collapsible.init(elems,{});  
          

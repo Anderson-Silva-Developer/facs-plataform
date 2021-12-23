@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body>
+<body oncontextmenu="return false;">
     <div id="fail" class="row hide">
         <div class="col s12 m4 offset-m4">
             <div class="card pink white-text">
@@ -34,16 +34,16 @@
                                     <div class="input-field row s12 m12">
                                         <span>Tipo de usuário</span>
                                         <select id="select-user" onchange="userOpcao(this);">
-                                            <option value="0">eu sou </option>
-                                            <option value="1">prof(a)</option>
-                                            <option value="2">aluno(a)</option>
+                                            <option value="0">Eu sou </option>
+                                            <option value="1">Prof(a)</option>
+                                            <option value="2">Aluno(a)</option>
                                         </select>
 
                                     </div>
                                 </div>
 
                                 <div id="optionAluno" class="row input-field hide">
-                                    <div class="row input-field">
+                                    <div class="row input-field">                                        
                                         <input id="matricula" placeholder="sua matricula" type="text"
                                             style="text-transform:uppercase">
                                     </div>
