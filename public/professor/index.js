@@ -175,7 +175,7 @@ function sendReport(){
         .then(response => {         
           console.log(response.status)
         })
-        // alert("Relatório em processo!!")
+        alert("Relatório em processo!!")
     }   
     
     

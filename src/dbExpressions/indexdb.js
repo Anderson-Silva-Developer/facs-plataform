@@ -312,7 +312,7 @@ async function getisTokenRoom(token_prof,token_aula){
             }
         
         }
-        console.log(valid)
+       
         return valid
 
         

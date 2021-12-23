@@ -22,6 +22,9 @@ body {
 #reportText{
     margin-bottom:2px;
 }
+input::placeholder {
+    color:gray;
+  }
 
  #node-video{ 
     display: inline-block;

@@ -1,87 +1,95 @@
-
 <html>
-    <head>
-        <title>face facs</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="css/video.css"/>        
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-       <div id="fail" class="row hide">
-            <div class="col s12 m4 offset-m4" >
-                <div class="card pink white-text">
-                    <div class="card-content">
-                        <p>camera não encontrada :(</p>
-                    </div>
+
+<head>
+    <title>face facs</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/video.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <div id="fail" class="row hide">
+        <div class="col s12 m4 offset-m4">
+            <div class="card pink white-text">
+                <div class="card-content">
+                    <p>camera não encontrada :(</p>
                 </div>
             </div>
         </div>
-                  
-        <div id="login" class="center row " >
-            <div class="col s12" >
-                <div class="card" style="margin-top:50px;">                    
-                    <div class="card-action teal lighten-1 white-text" >
-                        <h3 class="card-title center" >FACE FACS</h3>
-                        
-                    </div>
-                    <div id="fundo-login" class="card-content">
-                        <div class="row">                            
-                            <div class="col s12">
-                                <form id="loginForm">                                    
-                                    <div>     
-                                        <div class="input-field row s12 m12">
-                                            <span >Tipo de usuário</span>
-                                            <select id="select-user" onchange="userOpcao(this);" > 
-                                             <option value="0">eu sou </option>                                             
-                                              <option value="1">prof(a)</option>
-                                              <option value="2">aluno(a)</option>                                              
-                                            </select>                                           
-                                           
-                                          </div>                                        
-                                    </div>                                     
-                                     
-                                      <div id="optionAluno" class="row input-field hide">                                      
-                                                                                                                      
-                                        <div class="file-field input-field">
-                                          <div class="btn">
-                                            <span>token</span>
-                                            <input id="inputToken"  type="file" accept=".json" >
-                                          </div>
-                                          <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text">
-                                          </div>
-                                        </div>    
-                                        <div class="row input-field">
-                                            <input id="matricula" placeholder="sua matricula" type="text"  style="text-transform:uppercase">
-                                            
-                                        </div>                             
-                                                                           
-                                     </div>  
-                                                                                                          
-                                                                         
-                                    <div class="row s12">
-                                        <button type="submit" style="width: 100%;" class="waves-effect waves-light btn-small">Entrar</button>
-                                    </div>                       
+    </div>
+
+    <div id="login" class="center row ">
+        <div class="col s12">
+            <div class="card" style="margin-top:50px;">
+                <div class="card-action teal lighten-1 white-text">
+                    <h3 class="card-title center">FACE FACS</h3>
+
+                </div>
+                <div id="fundo-login" class="card-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <form id="loginForm">
+                                <div>
+                                    <div class="input-field row s12 m12">
+                                        <span>Tipo de usuário</span>
+                                        <select id="select-user" onchange="userOpcao(this);">
+                                            <option value="0">eu sou </option>
+                                            <option value="1">prof(a)</option>
+                                            <option value="2">aluno(a)</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div id="optionAluno" class="row input-field hide">
+                                    <div class="row input-field">
+                                        <input id="matricula" placeholder="sua matricula" type="text"
+                                            style="text-transform:uppercase">
+                                    </div>
+                                    
+
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+
+                                            <i class="material-icons">cloud_upload</i>
+
+                                            <input id="inputToken" type="file" accept=".json" >
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="adicinar token da aula">
+                                        </div>
+                                        
+                                    </div>
                                    
-                                </form>
-                                  
-                            </div>
-                            
+
+                                </div>
+
+
+                                <div class="row s12">
+                                    <button type="submit" style="width: 100%;"
+                                        class="waves-effect waves-light btn-small">Entrar</button>
+                                </div>
+
+                            </form>
+
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-        
-       
-        <script src="https://unpkg.com/axios@0.21.4/dist/axios.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script src="https://cdn.socket.io/socket.io-2.3.0.js"></script>        
-        <script src="./js/login.js"></script>  
-              
-       
-       
-        
-    </body>
+    </div>
+
+
+    <script src="https://unpkg.com/axios@0.21.4/dist/axios.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-2.3.0.js"></script>
+    <script src="./js/login.js"></script>
+
+
+
+
+</body>
+
 </html>
