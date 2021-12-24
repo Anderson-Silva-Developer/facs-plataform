@@ -5,7 +5,7 @@
 function Expression(){
   document.getElementById('local-player').srcObject = myStream
     resultJson=[]
-    sendTime=60000
+    sendTime=5000
     video = document.getElementById("local-player")
   
   
