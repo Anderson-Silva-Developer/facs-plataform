@@ -11,7 +11,9 @@ const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
-const { MongoClient } = require('mongodb');
+const connectFacefacs = require("../src/dbExpressions/db_facefacs")
+const connectTokens = require("../src/dbExpressions/db_tokens")
+
 const result = require('./dbExpressions/result')
 
 
@@ -27,16 +29,10 @@ class App {
 
      
 
-    start() {
-
-        // MongoClient.connect(process.env.APP_URLFACS)
-        // .then(client =>{
-        // const db = client.db('facefacs');
-        // const collection = db.collection('expressions');
-        // app.locals.collection = collection;
-        // });
-    
-
+    async start() {  
+        global.dbf=await connectFacefacs()        
+        global.dbt=await connectTokens()    
+     
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
             jwt.verify(token,SECRET,(err,decoded)=>{
@@ -65,7 +61,7 @@ class App {
             
             // const collection = req.app.locals.collection;
             // const result=await collection.find({}).toArray()
-            // console.log(result)
+            // console.log(await dbf.collection('expressions').find().toArray())
 
         try {
                        

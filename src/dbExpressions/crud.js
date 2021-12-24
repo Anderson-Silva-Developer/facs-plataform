@@ -1,13 +1,9 @@
-const connectFacefacs = require("./db_facefacs")
-const connectTokens = require("./db_tokens")
 
 const getAll = async () =>
 {
-   try {
-   
-    const db = await connectTokens; 
+   try {   
        
-    const result = db.collection('tokensProf').find().toArray();
+    const result = dbt.collection('tokensProf').find().toArray();
    
     return result;
 
@@ -22,14 +18,13 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     
     try {
 
-    const db = await connectFacefacs;
-   
+    
 
     updateAluno_=""+[turma]+".alunos.$[]."+[data]+"."+[matricula]+"."+[emotion]
     
     
 
-    const insert = await db.collection('expressions').updateOne(
+    const insert = await dbf.collection('expressions').updateOne(
         { "id":`${id}`}, {
             $push: {
 
@@ -39,7 +34,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     }
 
     )
-    result=db.collection('expressions').find().toArray(); 
+    result=dbf.collection('expressions').find().toArray(); 
     
     return result
         
@@ -53,12 +48,11 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 
 
 //adicionar token em disciplina
-const addToken=async (turma,token) =>{ 
-     
-    const db = await connectTokens;   
-    const result = db.collection('tokensProf').find().toArray();
+const addToken=async (turma,token) =>{      
+      
+    const result = dbt.collection('tokensProf').find().toArray();
     addToken_="tokens.$[]."+[turma] 
-    const insert = await db.collection('tokensProf').updateOne(
+    const insert = await dbt.collection('tokensProf').updateOne(
         { "_id": "tokensId" }, {
             $push: {
 
@@ -75,10 +69,9 @@ const addToken=async (turma,token) =>{
 
 }
 //// verificar existencia de token daconst 
-isTokenRoom=async (turma) =>{ 
-     
-    const db = await connectTokens;   
-    const result = db.collection('tokensProf').find().toArray();
+const isTokenRoom=async (turma) =>{      
+       
+    const result = dbt.collection('tokensProf').find().toArray();
    
 
     return result
@@ -89,8 +82,8 @@ isTokenRoom=async (turma) =>{
 
 
 const getReport=async(id_)=>{
-    const db = await connectFacefacs;
-    result=await db.collection('expressions').find({id:id_}).toArray();
+    
+    result=await dbf.collection('expressions').find({id:id_}).toArray();
    
     return result
 

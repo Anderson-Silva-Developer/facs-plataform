@@ -18,4 +18,4 @@ const connection = () => MongoClient
     process.exit(1);
   });
 
-module.exports = connection();              
+module.exports = connection;              
