@@ -1,13 +1,14 @@
 const connectFacefacs = require("./db_facefacs")
 const connectTokens = require("./db_tokens")
 
-
 const getAll = async () =>
 {
    try {
    
-    const db = await connectTokens();    
+    const db = await connectTokens(); 
+       
     const result = db.collection('tokensProf').find().toArray();
+    db.close ()
     return result;
 
    } catch (error) {
@@ -38,9 +39,9 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     }
 
     )
-         
-
-    return db.collection('expressions').find().toArray();
+    result=db.collection('expressions').find().toArray(); 
+    db.close ()
+    return result
         
     } catch (error) {
         console.log("Turma não encontrada!") 
@@ -68,7 +69,7 @@ const addToken=async (turma,token) =>{
 
     )
     
-   
+    db.close ()
 
     return result
 
@@ -78,7 +79,7 @@ isTokenRoom=async (turma) =>{
      
     const db = await connectTokens();   
     const result = db.collection('tokensProf').find().toArray();
-      
+    db.close ()
 
     return result
 
@@ -90,6 +91,7 @@ isTokenRoom=async (turma) =>{
 const getReport=async(id_)=>{
     const db = await connectFacefacs();
     result=await db.collection('expressions').find({id:id_}).toArray();
+    db.close ()
     return result
 
 
