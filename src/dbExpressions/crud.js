@@ -8,7 +8,7 @@ const getAll = async () =>
     const db = await connectTokens(); 
        
     const result = db.collection('tokensProf').find().toArray();
-    db.close ()
+   
     return result;
 
    } catch (error) {
@@ -40,7 +40,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 
     )
     result=db.collection('expressions').find().toArray(); 
-    db.close ()
+   
     return result
         
     } catch (error) {
@@ -69,7 +69,7 @@ const addToken=async (turma,token) =>{
 
     )
     
-    db.close ()
+    
 
     return result
 
@@ -79,7 +79,7 @@ isTokenRoom=async (turma) =>{
      
     const db = await connectTokens();   
     const result = db.collection('tokensProf').find().toArray();
-    db.close ()
+   
 
     return result
 
@@ -91,7 +91,7 @@ isTokenRoom=async (turma) =>{
 const getReport=async(id_)=>{
     const db = await connectFacefacs();
     result=await db.collection('expressions').find({id:id_}).toArray();
-    db.close ()
+   
     return result
 
 
