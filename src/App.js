@@ -11,14 +11,31 @@ const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
+const { MongoClient } = require('mongodb');
+const result = require('./dbExpressions/result')
+
+
 
 class App {
     constructor(port) {
         this.port = port ? port : 3000
     }
+
+
+
+
+
      
 
     start() {
+
+        // MongoClient.connect(process.env.APP_URLFACS)
+        // .then(client =>{
+        // const db = client.db('facefacs');
+        // const collection = db.collection('expressions');
+        // app.locals.collection = collection;
+        // });
+    
 
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
@@ -43,7 +60,13 @@ class App {
            
         app.use(express.json())      
         //save emotions
-        app.put('/json',(req,res)=>{
+        
+        app.put('/json',async(req,res)=>{
+            
+            // const collection = req.app.locals.collection;
+            // const result=await collection.find({}).toArray()
+            // console.log(result)
+
         try {
                        
             addEmotion(req.body)            
@@ -53,7 +76,10 @@ class App {
             console.log(error)
         }          
           
-        })
+        }
+        
+        
+        )
         app.post('/getToken',async(req,res)=>{  
             var isvalid=await validateToken(req.body.token)   
                                 
