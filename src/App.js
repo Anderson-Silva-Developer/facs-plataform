@@ -11,9 +11,7 @@ const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
-const connectFacefacs = require("../src/dbExpressions/db_facefacs")
-const connectTokens = require("../src/dbExpressions/db_tokens")
-
+const {connectFacefacs,connectTokens}=require("../src/dbExpressions/dbs")
 const result = require('./dbExpressions/result')
 
 
@@ -31,7 +29,8 @@ class App {
 
     async start() {  
         global.dbf=await connectFacefacs()        
-        global.dbt=await connectTokens()    
+        global.dbt=await connectTokens() 
+         
      
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
@@ -54,18 +53,16 @@ class App {
             })
         })
            
-        app.use(express.json())      
-        //save emotions
-        
-        app.put('/json',async(req,res)=>{
-            
-            // const collection = req.app.locals.collection;
-            // const result=await collection.find({}).toArray()
-            // console.log(await dbf.collection('expressions').find().toArray())
+        app.use(express.json()) 
 
-        try {
+        //save emotions        
+        app.put('/json',async(req,res)=>{           
+           
+
+        try {                    
                        
-            addEmotion(req.body)            
+        addEmotion(req.body) 
+                  
 
           res.send("ok")
         } catch (error) {

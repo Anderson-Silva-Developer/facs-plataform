@@ -50,7 +50,9 @@ function isToken(list,token_aula){
 
 }
     
- async function addExpression(emotion,matricula,token_aula,pct,h,m,s){    
+ async function addExpression(emotion,matricula,token_aula,pct,h,m,s){  
+     
+
    
     try {
     
@@ -119,13 +121,12 @@ async function validateToken(token){//***/
 function addEmotion(array){
 
  for(var i=0;i<array["resultJson"].length;i++){
-    var objeto = JSON.parse(array["resultJson"][i])
+    var objeto = JSON.parse(array["resultJson"][0])
     try {
         addExpression(objeto.expression, objeto.matricula,objeto.token,objeto.porcentagem,objeto.hora, objeto.minutos,objeto.segundos)
     } catch (error) {
         console.log(error)
-    }
-    
+    }   
 
  }   
 
