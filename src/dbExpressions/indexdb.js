@@ -50,15 +50,11 @@ function isToken(list,token_aula){
 
 }
     
- async function addExpression(emotion,matricula,token_aula,pct,h,m,s){  
-     
+ async function addExpression(turma,id,emotion,matricula,pct,h,m,s){      
 
    
-    try {
-    
-     array=await getClass(token_aula) 
-     turma=array[0]
-     id=array[1]    
+    try {    
+        
     let data = moment().format("DD/MM/YYYY");  
     update={   
               
@@ -71,7 +67,7 @@ function isToken(list,token_aula){
  
       if(turma && id){         
 
-        result=await add_Expression(id,turma,matricula,update,emotion,data);  
+        await add_Expression(id,turma,matricula,update,emotion,data);  
         
       }
 
@@ -86,12 +82,12 @@ function isToken(list,token_aula){
 
 //adicinar token da aula  na disciplina
 async function addToken_(turma,token){
-    result=await addToken(turma,token)
+    await addToken(turma,token)
     
     
 }
 
-async function validateToken(token){//***/
+async function validateToken(token){
     try {
         valid=false
         result=await getAll()
@@ -118,21 +114,26 @@ async function validateToken(token){//***/
 }
 
 
-function addEmotion(array){
+async function addEmotion(array){
+    var obj = JSON.parse(array["resultJson"][0])
+    arrayGetTurma=await getClass(obj.token) 
+    turma=arrayGetTurma[0]
+    id=arrayGetTurma[1]
 
- for(var i=0;i<array["resultJson"].length;i++){
-    var objeto = JSON.parse(array["resultJson"][0])
-    try {
-        
-        addExpression(objeto.expression, objeto.matricula,objeto.token,objeto.porcentagem,objeto.hora, objeto.minutos,objeto.segundos)
-   
-   
-   
-    } catch (error) {
-        console.log(error)
+    console.log("************push*******************")
+    for(var i=0;i<array["resultJson"].length;i++){
+        var objeto = JSON.parse(array["resultJson"][i])
+        try {       
+            
+            addExpression(turma,id,objeto.expression, objeto.matricula,objeto.porcentagem,objeto.hora, objeto.minutos,objeto.segundos)
+    
+    
+    
+        } catch (error) {
+            console.log(error)
+        }   
+
     }   
-
- }   
 
 
 

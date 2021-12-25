@@ -26,7 +26,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     
     
     const db = await connection.DbConnectionFacs.Get()
-    const insert = await db.collection('expressions').updateOne(
+     await db.collection('expressions').updateOne(
         { "id":`${id}`}, {
             $push: {
 
@@ -36,10 +36,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     }
 
     )
-    result=db.collection('expressions').find().toArray(); 
-    
-    return result
-        
+            
     } catch (error) {
         console.log("Turma não encontrada!") 
         console.log("Error:"+error)
@@ -51,8 +48,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 
 //adicionar token em disciplina
 const addToken=async (turma,token) =>{      
-    const db = await connection.DbConnectionToken.Get()
-    const result = db.collection('tokensProf').find().toArray();
+    const db = await connection.DbConnectionToken.Get()    
     addToken_="tokens.$[]."+[turma] 
     const insert = await db.collection('tokensProf').updateOne(
         { "_id": "tokensId" }, {
@@ -65,10 +61,7 @@ const addToken=async (turma,token) =>{
 
     )
     
-   
-
-    return result
-
+ 
 }
 //// verificar existencia de token daconst 
 const isTokenRoom=async (turma) =>{      

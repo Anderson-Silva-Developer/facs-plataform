@@ -55,8 +55,7 @@ class App {
         try {    
                          
                        
-        addEmotion(req.body) 
-                  
+        addEmotion(req.body)                   
 
           res.send("ok")
         } catch (error) {
