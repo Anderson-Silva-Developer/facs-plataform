@@ -4,8 +4,8 @@ const connection = require('./db')
 const getAll = async () =>
 {
    try {   
-    const db = await connection.DbConnectionToken.Get()
-    const result = db.collection('tokensProf').find().toArray();
+    const db = await connection.DbConnectionFacs.Get()
+    const result = db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();
    
     return result;
 
@@ -26,7 +26,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     
     
     const db = await connection.DbConnectionFacs.Get()
-     await db.collection('expressions').updateOne(
+     await db.collection(process.env.COLLECTION_NAME_EXPRESSIONS).updateOne(
         { "id":`${id}`}, {
             $push: {
 
@@ -48,9 +48,9 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 
 //adicionar token em disciplina
 const addToken=async (turma,token) =>{      
-    const db = await connection.DbConnectionToken.Get()    
+    const db = await connection.DbConnectionFacs.Get()   
     addToken_="tokens.$[]."+[turma] 
-    const insert = await db.collection('tokensProf').updateOne(
+    const insert = await db.collection(process.env.COLLECTION_NAME_TOKEN).updateOne(
         { "_id": "tokensId" }, {
             $push: {
 
@@ -65,8 +65,8 @@ const addToken=async (turma,token) =>{
 }
 //// verificar existencia de token daconst 
 const isTokenRoom=async (turma) =>{      
-    const db = await connection.DbConnectionToken.Get()
-    const result = db.collection('tokensProf').find().toArray();
+    const db = await connection.DbConnectionFacs.Get()
+    const result = db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();
    
 
     return result
@@ -78,7 +78,7 @@ const isTokenRoom=async (turma) =>{
 
 const getReport=async(id_)=>{
     const db = await connection.DbConnectionFacs.Get()
-    result=await db.collection('expressions').find({id:id_}).toArray();
+    result=await db.collection(process.env.COLLECTION_NAME_EXPRESSIONS).find({id:id_}).toArray();
    
     return result
 

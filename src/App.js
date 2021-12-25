@@ -17,13 +17,13 @@ const result = require('./dbExpressions/result')
 
 
 
+
 class App {
     constructor(port) {
         this.port = port ? port : 3000
     }
 
     async start() {  
-                 
         
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
