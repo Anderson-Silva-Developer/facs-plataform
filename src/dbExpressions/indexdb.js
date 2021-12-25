@@ -119,6 +119,8 @@ async function addEmotion(array){
     arrayGetTurma=await getClass(obj.token) 
     turma=arrayGetTurma[0]
     id=arrayGetTurma[1]
+
+    console.log(array)
     
     for(var i=0;i<array["resultJson"].length;i++){
         var objeto = JSON.parse(array["resultJson"][i])

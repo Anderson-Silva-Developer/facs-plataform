@@ -25,6 +25,7 @@ class App {
 
     async start() {  
         
+       
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
             jwt.verify(token,SECRET,(err,decoded)=>{

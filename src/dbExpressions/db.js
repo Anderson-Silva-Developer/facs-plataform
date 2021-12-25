@@ -34,7 +34,7 @@ var DbConnectionFacs = function () {
                 console.log(`db connection is already alive`);
                 return db;
             } else {
-                console.log(`getting new db connection expressions`);
+                console.log(`getting new db connection`);
                 db = await DbConnect();
                 return db; 
             }
