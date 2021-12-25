@@ -11,8 +11,9 @@ const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
-const {connectFacefacs,connectTokens}=require("../src/dbExpressions/dbs")
 const result = require('./dbExpressions/result')
+
+
 
 
 
@@ -21,17 +22,9 @@ class App {
         this.port = port ? port : 3000
     }
 
-
-
-
-
-     
-
     async start() {  
-        global.dbf=await connectFacefacs()        
-        global.dbt=await connectTokens() 
-         
-     
+                 
+        
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
             jwt.verify(token,SECRET,(err,decoded)=>{
@@ -59,7 +52,8 @@ class App {
         app.put('/json',async(req,res)=>{           
            
 
-        try {                    
+        try {    
+                         
                        
         addEmotion(req.body) 
                   

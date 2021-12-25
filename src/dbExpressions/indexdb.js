@@ -123,7 +123,11 @@ function addEmotion(array){
  for(var i=0;i<array["resultJson"].length;i++){
     var objeto = JSON.parse(array["resultJson"][0])
     try {
+        
         addExpression(objeto.expression, objeto.matricula,objeto.token,objeto.porcentagem,objeto.hora, objeto.minutos,objeto.segundos)
+   
+   
+   
     } catch (error) {
         console.log(error)
     }   

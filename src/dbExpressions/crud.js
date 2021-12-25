@@ -1,9 +1,11 @@
+const connection = require('./db')
+
 
 const getAll = async () =>
 {
    try {   
-       
-    const result = dbt.collection('tokensProf').find().toArray();
+    const db = await connection.DbConnectionToken.Get()
+    const result = db.collection('tokensProf').find().toArray();
    
     return result;
 
@@ -23,8 +25,8 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     updateAluno_=""+[turma]+".alunos.$[]."+[data]+"."+[matricula]+"."+[emotion]
     
     
-
-    const insert = await dbf.collection('expressions').updateOne(
+    const db = await connection.DbConnectionFacs.Get()
+    const insert = await db.collection('expressions').updateOne(
         { "id":`${id}`}, {
             $push: {
 
@@ -34,7 +36,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     }
 
     )
-    result=dbf.collection('expressions').find().toArray(); 
+    result=db.collection('expressions').find().toArray(); 
     
     return result
         
@@ -49,10 +51,10 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 
 //adicionar token em disciplina
 const addToken=async (turma,token) =>{      
-      
-    const result = dbt.collection('tokensProf').find().toArray();
+    const db = await connection.DbConnectionToken.Get()
+    const result = db.collection('tokensProf').find().toArray();
     addToken_="tokens.$[]."+[turma] 
-    const insert = await dbt.collection('tokensProf').updateOne(
+    const insert = await db.collection('tokensProf').updateOne(
         { "_id": "tokensId" }, {
             $push: {
 
@@ -70,8 +72,8 @@ const addToken=async (turma,token) =>{
 }
 //// verificar existencia de token daconst 
 const isTokenRoom=async (turma) =>{      
-       
-    const result = dbt.collection('tokensProf').find().toArray();
+    const db = await connection.DbConnectionToken.Get()
+    const result = db.collection('tokensProf').find().toArray();
    
 
     return result
@@ -82,8 +84,8 @@ const isTokenRoom=async (turma) =>{
 
 
 const getReport=async(id_)=>{
-    
-    result=await dbf.collection('expressions').find({id:id_}).toArray();
+    const db = await connection.DbConnectionFacs.Get()
+    result=await db.collection('expressions').find({id:id_}).toArray();
    
     return result
 
