@@ -52,19 +52,7 @@ function isToken(list,token_aula){
     
  async function addExpression(turma,id,emotion,matricula,pct,h,m,s){  
      
-    console.log(" **************hora do servidor ***************")
-    console.log(new Date().getHours())
-    console.log(new Date().getMinutes())
-    console.log(new Date().getSeconds())
-    console.log("*********************************************")
-    console.log(" ============= hora local ===================")
-    console.log(h)
-    console.log(m)
-    console.log(s)
-    console.log(" ============================================")
-
-
-   
+      
     try {    
         
     let data = moment().format("DD/MM/YYYY");  
@@ -136,7 +124,18 @@ async function addEmotion(array){
     
     for(var i=0;i<array["resultJson"].length;i++){
         var objeto = JSON.parse(array["resultJson"][i])
-        try {       
+        try {  
+            console.log(" **************hora do servidor ***************")
+            console.log(new Date().getHours())
+            console.log(new Date().getMinutes())
+            console.log(new Date().getSeconds())
+            console.log("*********************************************")
+            console.log(" ============= hora local ===================")
+            console.log(objeto.hora)
+            console.log(objeto.minutos)
+            console.log(objeto.segundos)
+            console.log(" ============================================")
+
             
             addExpression(turma,id,objeto.expression, objeto.matricula,objeto.porcentagem,objeto.hora, objeto.minutos,objeto.segundos)
     

@@ -24,7 +24,7 @@ class App {
     }
 
     async start() {  
-        
+       
                
        
         function verifyJWT(req,res,next) {
