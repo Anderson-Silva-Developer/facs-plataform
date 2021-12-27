@@ -50,7 +50,19 @@ function isToken(list,token_aula){
 
 }
     
- async function addExpression(turma,id,emotion,matricula,pct,h,m,s){      
+ async function addExpression(turma,id,emotion,matricula,pct,h,m,s){  
+     
+    console.log(" **************hora do servidor ***************")
+    console.log(new Date().getHours())
+    console.log(new Date().getMinutes())
+    console.log(new Date().getSeconds())
+    console.log("*********************************************")
+    console.log(" ============= hora local ===================")
+    console.log(h)
+    console.log(m)
+    console.log(s)
+    console.log(" ============================================")
+
 
    
     try {    
