@@ -131,7 +131,7 @@ async function addEmotion(array){
             console.log(new Date().getSeconds())
             console.log("*********************************************")
             console.log(" ============= hora local ===================")
-            console.log(objeto.hora)
+            console.log(new Date().getHours())
             console.log(objeto.minutos)
             console.log(objeto.segundos)
             console.log(" ============================================")

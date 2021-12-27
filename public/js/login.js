@@ -1,5 +1,6 @@
 
-document.addEventListener('DOMContentLoaded', function() {  
+document.addEventListener('DOMContentLoaded', function() { 
+   
   const inputMatricula=document.getElementById("matricula")
   inputMatricula.addEventListener("paste",function(e){
     e.preventDefault()
