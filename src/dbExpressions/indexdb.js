@@ -125,21 +125,9 @@ async function addEmotion(array){
     for(var i=0;i<array["resultJson"].length;i++){
         var objeto = JSON.parse(array["resultJson"][i])
         try {  
-            console.log(" **************hora do servidor ***************")
-            console.log(new Date().getHours())
-            console.log(new Date().getMinutes())
-            console.log(new Date().getSeconds())
-            console.log("*********************************************")
-            console.log(" ============= hora local ===================")
-            console.log(new Date().getHours())
-            console.log(objeto.minutos)
-            console.log(objeto.segundos)
-            console.log(" ============================================")
-
-            
+                       
             addExpression(turma,id,objeto.expression, objeto.matricula,objeto.porcentagem,objeto.hora, objeto.minutos,objeto.segundos)
-    
-    
+       
     
         } catch (error) {
             console.log(error)
@@ -178,8 +166,7 @@ async function get_Report(token)
     var arrayMediaInd=[]    
     
     result = await getReport(id)
-    // result=[mock]
-      
+         
 
     if (result)
     {

@@ -14,10 +14,6 @@ require('./SocketService')(http)
 const result = require('./dbExpressions/result')
 
 
-
-
-
-
 class App {
     constructor(port) {
         this.port = port ? port : 3000
@@ -38,6 +34,7 @@ class App {
             
         }
         app.get("/auth",verifyJWT,(req,res)=>{
+            console.log("/auth")
             res.json({auth:true})
         })
        
@@ -56,7 +53,7 @@ class App {
 
         try {    
                          
-                       
+        console.log("/json")               
         addEmotion(req.body)                   
 
           res.send("ok")
@@ -64,11 +61,11 @@ class App {
             console.log(error)
         }          
           
-        }
-        
+        }        
         
         )
-        app.post('/getToken',async(req,res)=>{  
+        app.post('/getToken',async(req,res)=>{ 
+            console.log("/getToken") 
             var isvalid=await validateToken(req.body.token)   
                                 
             if(isvalid){                
@@ -85,9 +82,9 @@ class App {
         }) 
         app.get('/isValid',async(req,res)=>{  
             try {
+            console.log("/isValid")
             var isvalid=await validateToken(req.headers['x-access-token-prof'])            
-            var tokenAula=req.headers['x-access-token-aula']
-               
+            var tokenAula=req.headers['x-access-token-aula']              
 
              
             if(isvalid){
