@@ -50,7 +50,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 const addToken=async (turma,token) =>{      
     db = await connection.DbConnectionFacs.Get()   
     addToken_="tokens.$[]."+[turma] 
-    const insert = await db.collection(process.env.COLLECTION_NAME_TOKEN).updateOne(
+    await db.collection(process.env.COLLECTION_NAME_TOKEN).updateOne(
         { "_id": "tokensId" }, {
             $push: {
 
@@ -63,17 +63,6 @@ const addToken=async (turma,token) =>{
     
  
 }
-//// verificar existencia de token daconst 
-const isTokenRoom=async (turma) =>{      
-    db = await connection.DbConnectionFacs.Get()
-    const result = db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();
-   
-
-    return result
-
-}
-
-
 
 
 const getReport=async(id_)=>{
@@ -86,4 +75,4 @@ const getReport=async(id_)=>{
 }
 
 
-module.exports = { getAll,add_Expression,addToken,getReport,isTokenRoom}
+module.exports = { getAll,add_Expression,addToken,getReport}
