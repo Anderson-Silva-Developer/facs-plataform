@@ -175,7 +175,8 @@ const get_Report=async(token)=>
     
     result = await getReport(id)
          
-
+    console.log("result report:")
+    console.log(result)
     if (result)
     {
         array = result[0][turma]["alunos"]
