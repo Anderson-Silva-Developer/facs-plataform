@@ -14,7 +14,8 @@ var DbConnection= function () {
             let db_ = await MongoClient.connect(
                 MONGO_DB_URL_FACS, {
                 useNewUrlParser: true,                
-                useUnifiedTopology: true                              
+                useUnifiedTopology: true,
+                directConnection:true                              
                 
             })
                 .then(
