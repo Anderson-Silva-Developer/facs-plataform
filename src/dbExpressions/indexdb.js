@@ -4,9 +4,9 @@ const moment = require("moment")
  
  const getClass=async(token)=>{
 
-    result=await getAll()
-    list=result[0]    
-    result=isToken(list,token)
+    var result=await getAll()
+    var list=result[0]    
+    var result=isToken(list,token)
 
     return result
     
@@ -15,17 +15,18 @@ const isToken=(list,token_aula)=>{
     
     try {        
    
-    turmaResult=""
-    id=""   
-    list1=(Object.keys(list["tokens"][0]))  
+    var turmaResult=""
+    var id=""   
+    var list1=(Object.keys(list["tokens"][0]))  
 
     for(var i=0;i<list1.length;i++){
-       turma=list1[i]
-       list_token=list["tokens"][0][turma]
+       var turma=list1[i]
+       var list_token=list["tokens"][0][turma]
 
        for(var k=0;k<list_token.length;k++){          
           
             if(list_token[k]["token-aula"]===token_aula){
+                console.log("id encontrado")
                 turmaResult=turma
                 id=(list_token[0]["id"])                
                 break
