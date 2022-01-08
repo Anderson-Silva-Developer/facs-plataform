@@ -25,7 +25,7 @@ const isToken=(list,token_aula)=>{
 
        for(var k=0;k<list_token.length;k++){          
           
-            if(list_token[k]["token-aula"]===token_aula){
+            if(list_token[k]["token-aula"]==token_aula){
                 console.log("id encontrado")
                 turmaResult=turma
                 id=(list_token[0]["id"])                
