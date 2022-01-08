@@ -154,6 +154,8 @@ const addEmotion = async(array)=>{
 }
 const get_Report=async(token)=>
 {
+    console.log(" *********** token ***********")
+    console.log(token)
     array=await getClass(token)
     turma=array[0]
     id=array[1]
