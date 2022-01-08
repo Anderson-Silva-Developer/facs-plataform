@@ -26,7 +26,7 @@ const isToken=(list,token_aula)=>{
        for(var k=0;k<list_token.length;k++){          
             console.log("|||||*********************")
             console.log(list_token[k]["token-aula"])            
-            console.log(list_token[k]["token-aula"]===token_aula)
+            console.log(list_token[k]["token-aula"]===[token_aula])
             console.log("***********************|||||")
             if(list_token[k]["token-aula"]===token_aula){
                 console.log("id encontrado")
@@ -42,8 +42,7 @@ const isToken=(list,token_aula)=>{
     
 } catch (error) {
 
-    console.log(error)
-        
+    console.log(error)        
 }
 
     result=[]
