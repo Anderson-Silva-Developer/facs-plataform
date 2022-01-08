@@ -18,12 +18,8 @@ class App {
         this.port = port ? port : 3000
     }
 
-    async start() {  
-        var db = await DbConnection.Get()    
-        var result = await db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray(); 
-        console.log(result) 
-              
-       
+    async start() {      
+        
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
             jwt.verify(token,SECRET,(err,decoded)=>{
