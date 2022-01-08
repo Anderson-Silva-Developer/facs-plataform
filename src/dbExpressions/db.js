@@ -21,7 +21,8 @@ var DbConnection= function () {
                 .then(
                     (conn) => conn.db(process.env.DB_NAME_FACS)                    
                     
-                );
+                ).catch((err)=>console.log("Error db : "+err));
+
             return db_
         } catch (e) {
             return e;

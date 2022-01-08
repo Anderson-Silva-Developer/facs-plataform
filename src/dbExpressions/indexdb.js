@@ -1,6 +1,6 @@
 const {getAll,addToken, add_Expression,getReport} = require("./crud")
 const moment = require("moment")
-const mock=require("./result")
+
  
  const getClass=async(token)=>{
 
@@ -92,7 +92,7 @@ const validateToken= async(token_prof,token_aula)=>{
         valid_token_prof=false
         valid_token_aula=false
         result=await getAll()
-       
+        if(result){
         list=(Object.keys(result[0]["tokens"][0]))
         for(var i=0;i<list.length;i++){  
                                  
@@ -107,6 +107,9 @@ const validateToken= async(token_prof,token_aula)=>{
         }
                 
         return (valid_token_aula==valid_token_prof)
+    }else{
+        return false
+    }
 
         
     } catch (error) {
