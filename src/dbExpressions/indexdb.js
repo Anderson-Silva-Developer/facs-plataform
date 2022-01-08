@@ -24,17 +24,19 @@ const isToken=(list,token_aula)=>{
        var list_token=list["tokens"][0][turma]
 
        for(var k=0;k<list_token.length;k++){          
-          
-            if(list_token[k]["token-aula"]==token_aula){
+            console.log("\*********************")
+            console.log(list_token[k]["token-aula"])
+            console.log("token_aula: ")
+            console.log(token_aula)
+            console.log(list_token[k]["token-aula"]===token_aula)
+            console.log("***********************/")
+            if(list_token[k]["token-aula"]===token_aula){
                 console.log("id encontrado")
                 turmaResult=turma
                 id=(list_token[0]["id"])                
                 break
             }else{
-                console.log("id não encontrado: ")
-                console.log(list_token[k]["token-aula"])
-                console.log("token_aula: ")
-                console.log(token_aula)
+                console.log("id não encontrado: ")                
             }
        } 
         
