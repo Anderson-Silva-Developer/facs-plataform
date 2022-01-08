@@ -1,12 +1,10 @@
-const connection = require('./db')
-
+const DbConnection = require('./db')
 
 const getAll = async () =>
 {
    try {   
-    db = await connection.DbConnectionFacs.Get()
-    const result = db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();
-    
+    db = await DbConnection.Get()    
+    result = await db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();    
     return result;
 
    } catch (error) {
@@ -25,7 +23,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
     updateAluno_=""+[turma]+".alunos.$[]."+[data]+"."+[matricula]+"."+[emotion]
     
     
-     db = await connection.DbConnectionFacs.Get()
+     db = await DbConnection.Get()    
      await db.collection(process.env.COLLECTION_NAME_EXPRESSIONS).updateOne(
         { "id":`${id}`}, {
             $push: {
@@ -48,7 +46,7 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 
 //adicionar token em disciplina
 const addToken=async (turma,token) =>{      
-    db = await connection.DbConnectionFacs.Get()   
+    db = await DbConnection.Get()   
     addToken_="tokens.$[]."+[turma] 
     await db.collection(process.env.COLLECTION_NAME_TOKEN).updateOne(
         { "_id": "tokensId" }, {
@@ -66,7 +64,7 @@ const addToken=async (turma,token) =>{
 
 
 const getReport=async(id_)=>{
-    db = await connection.DbConnectionFacs.Get()
+    db = await DbConnection.Get()
     result=await db.collection(process.env.COLLECTION_NAME_EXPRESSIONS).find({id:id_}).toArray();
    
     return result

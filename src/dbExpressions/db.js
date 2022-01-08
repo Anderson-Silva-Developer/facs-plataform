@@ -3,7 +3,7 @@ require("dotenv").config()
 
 const MONGO_DB_URL_FACS =process.env.APP_URLFACS;
 
-var DbConnectionFacs = function () {
+var DbConnection= function () {
 
     var db = null;
     var instance = 0;
@@ -11,15 +11,17 @@ var DbConnectionFacs = function () {
     async function DbConnect() {
         try {
             
-            let _db = await MongoClient.connect(
+            let db_ = await MongoClient.connect(
                 MONGO_DB_URL_FACS, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true})
+                useNewUrlParser: true,                
+                useUnifiedTopology: true                              
+                
+            })
                 .then(
-                    (conn) => conn.db(process.env.DB_NAME_FACS)
+                    (conn) => conn.db(process.env.DB_NAME_FACS)                    
                     
                 );
-            return _db
+            return db_
         } catch (e) {
             return e;
         }
@@ -31,7 +33,7 @@ var DbConnectionFacs = function () {
             console.log(`DbConnection called ${instance} times`);
 
             if (db != null) {
-                console.log(`db connection is already alive`);               
+                console.log(`db connection is already alive`);            
                 
                 return db;
             } else {
@@ -49,4 +51,4 @@ var DbConnectionFacs = function () {
     }
 }
 
-module.exports.DbConnectionFacs= DbConnectionFacs()
+module.exports= DbConnection()

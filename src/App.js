@@ -6,13 +6,11 @@ const fs=require("fs")
 const ejs=require("ejs")
 const path=require("path")
 const pdf=require("html-pdf")
-const {validateToken,addToken_,addEmotion,get_Report,getisTokenRoom} = require("../src/dbExpressions/indexdb")
+const {validateToken,addToken_,addEmotion,get_Report} = require("../src/dbExpressions/indexdb")
 const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
-const result = require('./dbExpressions/result')
-
 
 class App {
     constructor(port) {
@@ -20,8 +18,7 @@ class App {
     }
 
     async start() {  
-       
-               
+              
        
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
@@ -33,8 +30,7 @@ class App {
 
             
         }
-        app.get("/auth",verifyJWT,(req,res)=>{
-            console.log("/auth")
+        app.get("/auth",verifyJWT,(req,res)=>{            
             res.json({auth:true})
         })
        
@@ -51,9 +47,9 @@ class App {
         app.put('/json',async(req,res)=>{           
            
 
-        try {    
+        try {   
                          
-        console.log("/json")               
+                      
         addEmotion(req.body)                   
 
           res.send("ok")
@@ -65,7 +61,7 @@ class App {
         
         )
         app.post('/getToken',async(req,res)=>{ 
-            console.log("/getToken") 
+            
             var isvalid=await validateToken(req.body.token)   
                                 
             if(isvalid){                
@@ -82,18 +78,15 @@ class App {
         }) 
         app.get('/isValid',async(req,res)=>{  
             try {
-            console.log("/isValid")
-            var isvalid=await validateToken(req.headers['x-access-token-prof'])            
-            var tokenAula=req.headers['x-access-token-aula']              
-
+            
+            var token_aula=req.headers['x-access-token-aula'] 
+            var token_prof=req.headers['x-access-token-prof']
+            var isvalid=await validateToken(token_prof,token_aula)           
+              
              
-            if(isvalid){
-                var isTokenValid= await getisTokenRoom(req.headers['x-access-token-prof'],tokenAula)
-                if(isTokenValid){
-                    res.json({auth:true})
-                }else{
-                    res.json({auth:false})
-                }                
+            if(isvalid){                
+                res.json({auth:true})        
+                                                
             }else{
                 res.json({auth:false})
             }

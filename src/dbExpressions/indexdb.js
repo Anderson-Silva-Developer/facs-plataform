@@ -2,7 +2,7 @@ const {getAll,addToken, add_Expression,getReport} = require("./crud")
 const moment = require("moment")
 const mock=require("./result")
  
- async function getClass(token){
+ const getClass=async(token)=>{
 
     result=await getAll()
     list=result[0]    
@@ -11,7 +11,7 @@ const mock=require("./result")
     return result
     
 }
-function isToken(list,token_aula){   
+const isToken=(list,token_aula)=>{   
     
     try {        
    
@@ -50,7 +50,7 @@ function isToken(list,token_aula){
 
 }
     
- async function addExpression(turma,id,emotion,matricula,pct,h,m,s){  
+ const addExpression=async(turma,id,emotion,matricula,pct,h,m,s)=>{  
      
       
     try {    
@@ -81,26 +81,32 @@ function isToken(list,token_aula){
 }
 
 //adicinar token da aula  na disciplina
-async function addToken_(turma,token){
+const addToken_= async(turma,token)=>{
     await addToken(turma,token)
     
     
 }
 
-async function validateToken(token){
+const validateToken= async(token_prof,token_aula)=>{
     try {
-        valid=false
+        valid_token_prof=false
+        valid_token_aula=false
         result=await getAll()
        
         list=(Object.keys(result[0]["tokens"][0]))
         for(var i=0;i<list.length;i++){  
                                  
-            if(list[i]==token){            
-            valid=true
+            if(list[i]==token_prof){            
+            valid_token_prof=true
+            tokensList=result[0]["tokens"][0][list[i]]
+            resultToken =tokensList.filter(item=> item["token-aula"]==token_aula)    
+            if(resultToken) {valid_token_aula=true} 
+
             }
         
         }
-        return valid
+        
+        return (valid_token_aula==valid_token_prof)
 
         
     } catch (error) {
@@ -114,7 +120,7 @@ async function validateToken(token){
 }
 
 
-async function addEmotion(array){
+const addEmotion = async(array)=>{
     var obj = JSON.parse(array["resultJson"][0])
     arrayGetTurma=await getClass(obj.token) 
     turma=arrayGetTurma[0]
@@ -137,7 +143,7 @@ async function addEmotion(array){
 
 
 }
-async function get_Report(token)
+const get_Report=async(token)=>
 {
     array=await getClass(token)
     turma=array[0]
@@ -298,39 +304,9 @@ function createObject(){
     return ob
 
 }
-//validar token professor e token aula
-async function getisTokenRoom(token_prof,token_aula){
-    
-    try {
-        valid=false
-        result=await getAll()
-       
-        list=(Object.keys(result[0]["tokens"][0]))
-        for(var i=0;i<list.length;i++){                                  
-            if(list[i]==token_prof){
 
-             tokensList=result[0]["tokens"][0][list[i]]
-             resultToken =tokensList.filter(item=> item["token-aula"]==token_aula)    
-             if(resultToken) {valid=true}  
-           
-            }
-        
-        }
-       
-        return valid
 
-        
-    } catch (error) {
-        console.log(error)
-        return false
-        
-    }
-
-    
-
-}
-
-module.exports = {validateToken,addToken_,addEmotion,get_Report,getisTokenRoom}
+module.exports = {validateToken,addToken_,addEmotion,get_Report}
     
 
 
