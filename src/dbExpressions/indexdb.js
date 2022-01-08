@@ -177,7 +177,9 @@ const get_Report=async(token)=>
          
     console.log("result report:")
     console.log(result)
-    if (result)
+    console.log("result report id:")
+    console.log(id)
+    if (result!=null)
     {
         array = result[0][turma]["alunos"]
         
