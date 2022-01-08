@@ -30,6 +30,11 @@ const isToken=(list,token_aula)=>{
                 turmaResult=turma
                 id=(list_token[0]["id"])                
                 break
+            }else{
+                console.log("id não encontrado: ")
+                console.log(list_token[k]["token-aula"])
+                console.log("token_aula: ")
+                console.log(token_aula)
             }
        } 
         
