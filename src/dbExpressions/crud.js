@@ -2,7 +2,8 @@ const DbConnection = require('./db')
 
 const getAll = async () =>
 {
-   try {   
+   try {  
+        
     db = await DbConnection.Get()    
     result = await db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();    
     return result;
