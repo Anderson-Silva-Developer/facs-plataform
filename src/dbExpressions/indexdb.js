@@ -105,6 +105,8 @@ const validateToken= async(token_prof,token_aula)=>{
             }
         
         }
+        console.log("valor token aula"+valid_token_aula)
+        console.log("valor token prof"+valid_token_prof)
         
         return (valid_token_aula==valid_token_prof)
 
