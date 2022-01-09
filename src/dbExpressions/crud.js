@@ -3,13 +3,11 @@ const DbConnection = require('./db')
 const getAll = async () =>
 {
    try { 
-    console.log("getAll: "+process.env.COLLECTION_NAME_TOKEN)      
+        
         
    var db = await DbConnection.Get()    
    var  result = await db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();  
-   console.log("result :")  
-   console.log(result)
-   
+      
     return result;
 
    } catch (error) {

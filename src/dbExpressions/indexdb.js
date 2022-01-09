@@ -4,51 +4,44 @@ const moment = require("moment")
  
  const getClass=async(token)=>{
 
-    var result=await getAll()
-    var list=result[0]    
-    var result=isToken(list,token)
+    var result=await getAll()    
+    var result=isToken(result,token)
 
     return result
     
 }
-const isToken=(list,token_aula)=>{   
+const isToken=(result,token_aula)=>{   
     
     try {        
    
     var turmaResult=""
     var id=""   
-    var list1=(Object.keys(list["tokens"][0]))  
-
-    for(var i=0;i<list1.length;i++){
-       var turma=list1[i]
-       var list_token=list["tokens"][0][turma]
-
-       for(var k=0;k<list_token.length;k++){          
-            console.log("|||||*********************")
-            console.log(list_token[k]["token-aula"])            
-            console.log(list_token[k]["token-aula"]===[token_aula])
-            console.log("***********************|||||")
-            if(list_token[k]["token-aula"]===token_aula){
-                console.log("id encontrado")
-                turmaResult=turma
-                id=(list_token[0]["id"])                
-                break
-            }
-       } 
-        
-       
     
-}
+    for(var i=0;i<result.length;i++){               
+
+        var turma=result[i]._id                
+        var list_token=result[i]["tokens"][0][turma]
+
+            for(var k=0;k<list_token.length;k++){          
+                    
+                if(list_token[k]["token-aula"]===token_aula){                            
+                    turmaResult=turma
+                    id=(list_token[0]["id"])                
+                        break
+               }
+
+            }
+    }
     
 } catch (error) {
 
     console.log(error)        
 }
 
-    result=[]
-    result.push(turmaResult)
-    result.push(id)
-    return result
+    result_=[]
+    result_.push(turmaResult)
+    result_.push(id)
+    return result_
 
 
 }
@@ -85,6 +78,8 @@ const isToken=(list,token_aula)=>{
 
 //adicinar token da aula  na disciplina
 const addToken_= async(turma,token)=>{
+    
+
     await addToken(turma,token)
     
     
@@ -131,7 +126,7 @@ const addEmotion = async(array)=>{
     arrayGetTurma=await getClass(obj.token) 
     turma=arrayGetTurma[0]
     id=arrayGetTurma[1]
-    console.log(array)
+    if(turma && id){
     
     for(var i=0;i<array["resultJson"].length;i++){
         var objeto = JSON.parse(array["resultJson"][i])
@@ -144,15 +139,17 @@ const addEmotion = async(array)=>{
             console.log(error)
         }   
 
-    }   
+    }  
+}else{
+    console.log("não inserido")
+} 
 
 
 
 }
 const get_Report=async(token)=>
 {
-    console.log(" *********** token ***********")
-    console.log(token)
+    
     array=await getClass(token)
     turma=array[0]
     id=array[1]
@@ -178,12 +175,8 @@ const get_Report=async(token)=>
 
     var arrayMediaInd=[]    
     
-    result = await getReport(id)
-         
-    console.log("result report:")
-    console.log(result)
-    console.log("result report id:")
-    console.log(id)
+    result = await getReport(id)         
+    
     if (result!=null)
     {
         array = result[0][turma]["alunos"]

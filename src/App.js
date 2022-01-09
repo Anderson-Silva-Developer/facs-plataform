@@ -11,6 +11,7 @@ const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
+const DbConnection=require("./dbExpressions/db")
 
 
 
@@ -19,9 +20,8 @@ class App {
         this.port = port ? port : 3000
     }
 
-    async start() {    
-
-
+    async start() { 
+      
                 
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
@@ -106,6 +106,7 @@ class App {
                 const token=req.headers['x-access-token']
                 
                 var  arrayResult=await get_Report(token)
+                
                 if(arrayResult){
                 var emotions=arrayResult[0]
                 var inforTurma=arrayResult[1]
