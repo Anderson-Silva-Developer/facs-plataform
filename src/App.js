@@ -11,7 +11,8 @@ const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
-const DbConnection = require('./dbExpressions/db')
+
+
 
 class App {
     constructor(port) {
@@ -19,11 +20,9 @@ class App {
     }
 
     async start() {    
-        var db = await DbConnection.Get()    
-        var  result = await db.collection(process.env.COLLECTION_NAME_TOKEN).find().toArray();  
-        console.log("result :")  
-        console.log(result)  
-        
+
+
+                
         function verifyJWT(req,res,next) {
             const token=req.headers['x-access-token']
             jwt.verify(token,SECRET,(err,decoded)=>{

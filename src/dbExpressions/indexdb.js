@@ -95,9 +95,9 @@ const validateToken= async(token_prof,token_aula)=>{
         valid_token_prof=false
         valid_token_aula=false
         result=await getAll()
-        if(result){
+        if(result!=null){
         list=(Object.keys(result[0]["tokens"][0]))
-        for(var i=0;i<list.length;i++){  
+        for(var i=0;i<list.length;i++){ 
                                  
             if(list[i]==token_prof){            
             valid_token_prof=true

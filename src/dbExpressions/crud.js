@@ -53,9 +53,11 @@ const add_Expression = async (id,turma,matricula,update,emotion,data) =>
 //adicionar token em disciplina
 const addToken=async (turma,token) =>{      
     var db = await DbConnection.Get()   
-    var addToken_="tokens.$[]."+[turma] 
+    var addToken_="tokens.$[]."+[turma]
+
+
     await db.collection(process.env.COLLECTION_NAME_TOKEN).updateOne(
-        { "_id": "tokensId" }, {
+        { "_id":turma}, {
             $push: {
 
             [addToken_]:{"token-aula":token}
