@@ -258,7 +258,7 @@ const get_Report=async(token)=>
     for(var i=0;i<arrayMediaInd.length;i++){         
     
         valor =parseFloat(arrayMediaInd[i].sad)+parseFloat(arrayMediaInd[i].angry)
-        arrayMediaInd[i].duvida =parseFloat(valor.toFixed(2))/2
+        arrayMediaInd[i].duvida =parseFloat(valor.toFixed(2))
         
     }
     
