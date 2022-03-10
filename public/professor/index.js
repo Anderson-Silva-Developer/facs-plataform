@@ -57,7 +57,7 @@ function initServerConnection(token_aula) {
     
     socket.on('connect', function () {  
        console.log("connect")
-       statusAula(localStorage.getItem("gravando")=="on"?"on":"of")  
+       statusAula(localStorage.getItem("gravando")=="on"?"on":"off")  
        socket.emit('getId',socket.id)
 
        

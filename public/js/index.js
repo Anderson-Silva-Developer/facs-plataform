@@ -105,8 +105,7 @@ function initServerConnection(token,matricula) {
 
     })
 
-    socket.on('connect_error', function(error) {
-        console.log('Connection ERROR!')
+    socket.on('connect_error', function(error) {        
         console.log(error)
         leave()
     })
