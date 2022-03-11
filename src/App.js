@@ -6,7 +6,7 @@ const fs=require("fs")
 const ejs=require("ejs")
 const path=require("path")
 const pdf=require("html-pdf")
-const {validateToken,addToken_,addEmotion,get_Report} = require("../src/dbExpressions/indexdb")
+const {validateToken,validateTokenProf,addToken_,addEmotion,get_Report} = require("../src/dbExpressions/indexdb")
 const {sendEmail} =require("./report/sendReportMail")
 const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
@@ -65,7 +65,7 @@ class App {
         )
         app.post('/getToken',async(req,res)=>{ 
             
-            var isvalid=await validateToken(req.body.token)   
+            var isvalid=await validateTokenProf(req.body.token)   
                                 
             if(isvalid){                
                 const token=jwt.sign({userId:1},SECRET,{expiresIn:86400})                
@@ -86,7 +86,7 @@ class App {
             var token_prof=req.headers['x-access-token-prof']
             var isvalid=await validateToken(token_prof,token_aula)           
               
-             
+             console.log("xxxxxxxxxxxxxxxxx "+isvalid)
             if(isvalid){                
                 res.json({auth:true})        
                                                 

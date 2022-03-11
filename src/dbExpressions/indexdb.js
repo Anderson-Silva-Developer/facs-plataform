@@ -94,7 +94,8 @@ const validateToken= async(token_prof,token_aula)=>{
         list=(Object.keys(result[0]["tokens"][0]))
         for(var i=0;i<list.length;i++){ 
                                  
-            if(list[i]==token_prof){            
+            if(list[i]==token_prof){  
+                        
             valid_token_prof=true
             tokensList=result[0]["tokens"][0][list[i]]
             resultToken =tokensList.filter(item=> item["token-aula"]==token_aula)    
@@ -103,8 +104,42 @@ const validateToken= async(token_prof,token_aula)=>{
             }
         
         }
+        
                 
-        return (valid_token_aula==valid_token_prof)
+        return (valid_token_aula==true && valid_token_prof==true)
+    }else{
+        return false
+    }
+
+        
+    } catch (error) {
+        console.log(error)
+        return false
+        
+    }
+    
+
+
+}
+const validateTokenProf= async(token_prof)=>{
+    try {
+        valid_token_prof=false        
+        result=await getAll()
+        if(result!=null){
+        list=(Object.keys(result[0]["tokens"][0]))
+        for(var i=0;i<list.length;i++){ 
+                                 
+            if(list[i]==token_prof){  
+
+            valid_token_prof=true          
+
+            }
+        
+        }
+       
+        
+                
+        return valid_token_prof
     }else{
         return false
     }
@@ -310,7 +345,7 @@ function createObject(){
 }
 
 
-module.exports = {validateToken,addToken_,addEmotion,get_Report}
+module.exports = {validateToken,validateTokenProf,addToken_,addEmotion,get_Report}
     
 
 
