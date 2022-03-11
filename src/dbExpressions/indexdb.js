@@ -91,15 +91,19 @@ const validateToken = async (token_prof, token_aula) => {
         valid_token_aula = false
         result = await getAll()
         if (result != null) {
-            list = (Object.keys(result[0]["tokens"][0]))
-            for (var i = 0; i < list.length; i++) {
 
-                if (list[i] == token_prof) {
+            for (var i = 0; i < result.length; i++) {
+                list = (Object.keys(result[i]["tokens"][0]))
+                for (var j = 0; j < list.length; j++) {
 
-                    valid_token_prof = true
-                    tokensList = result[0]["tokens"][0][list[i]]
-                    resultToken = tokensList.filter(item => item["token-aula"] == token_aula)
-                    if (resultToken) { valid_token_aula = true }
+                    if (list[j] == token_prof) {
+
+                        valid_token_prof = true
+                        tokensList = result[i]["tokens"][0][list[j]]
+                        resultToken = tokensList.filter(item => item["token-aula"] == token_aula)
+                        if (resultToken) { valid_token_aula = true }
+
+                    }
 
                 }
 
@@ -126,15 +130,16 @@ const validateTokenProf = async (token_prof) => {
         valid_token_prof = false
         result = await getAll()
         if (result != null) {
-                        
+
             for (var i = 0; i < result.length; i++) {
                 list = (Object.keys(result[i]["tokens"][0]))
 
                 for (var j = 0; j < list.length; j++) {
-                     console.log(list[j])
+                    console.log(list[j])
                     if (list[j] == token_prof) {
 
                         valid_token_prof = true
+
 
                     }
 
@@ -142,19 +147,6 @@ const validateTokenProf = async (token_prof) => {
 
 
             }
-
-            // for(var i=0;i<list.length;i++){ 
-
-
-            //     if(list[i]==token_prof){  
-
-            //     valid_token_prof=true          
-
-            //     }
-
-            // }
-
-
 
             return valid_token_prof
         } else {
