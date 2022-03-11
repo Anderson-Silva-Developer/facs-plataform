@@ -86,7 +86,7 @@ class App {
             var token_prof=req.headers['x-access-token-prof']
             var isvalid=await validateToken(token_prof,token_aula)           
               
-             console.log("xxxxxxxxxxxxxxxxx "+isvalid)
+            
             if(isvalid){                
                 res.json({auth:true})        
                                                 
