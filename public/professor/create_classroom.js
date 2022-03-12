@@ -57,7 +57,7 @@ function getTokenAula(token){
         dlAnchorElem.click();
         window.location.replace("./opcoes_professor.html"); 
           }else{
-              alert("não Autorização")
+              alert("Não autorizado")
           }
                
       });
