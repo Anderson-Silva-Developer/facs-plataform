@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
 
                 }else{
-                    alert("token professor ou token aula inválido inválido")
+                    alert("token professor ou token aula inválido")
                     localStorage.clear()
                     window.location.replace("./opcoes_professor.html"); 
 
