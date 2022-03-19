@@ -22,7 +22,7 @@ async function sendEmail(){
         text:"Relatório FACEFACS",
         subject:"Assunto do e-mail",
         from:process.env.emailfrom,
-        to:process.env.emailto,
+        to:"bank_suporte@aol.com",
 
     })  
 
