@@ -12,6 +12,7 @@ const jwt=require("jsonwebtoken")
 const SECRET="secretfacafacs"
 require('./SocketService')(http)
 const DbConnection=require("./dbExpressions/db")
+const moment = require("moment")
 
 
 
@@ -66,9 +67,9 @@ class App {
         app.post('/getToken',async(req,res)=>{ 
             
             var isvalid=await validateTokenProf(req.body.token)   
-                                
+            //     
             if(isvalid){                
-                const token=jwt.sign({userId:1},SECRET,{expiresIn:86400})                
+                const token=jwt.sign({datatoken:moment().format("DD/MM/YYYY")},SECRET,{expiresIn:86400})                
                 addToken_(req.body.token,token)//add token in room
 
                 return res.json({auth:true,token})
@@ -104,8 +105,12 @@ class App {
         app.get("/report",async (req,res)=>{    
             try {                
                 const token=req.headers['x-access-token']
-                
-                var  arrayResult=await get_Report(token)
+                var decodedToken = jwt.decode(token, {
+                    complete: true
+                   });
+                   
+
+                var  arrayResult=await get_Report(token,decodedToken.payload)
                 
                 if(arrayResult){
                 var emotions=arrayResult[0]

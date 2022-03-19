@@ -191,13 +191,13 @@ const addEmotion = async (array) => {
 
 
 }
-const get_Report = async (token) => {
+const get_Report = async (token,payload) => {
 
     array = await getClass(token)
     turma = array[0]
     id = array[1]
-    let data = moment().format("DD/MM/YYYY");
-
+    let data = payload.datatoken;
+    
     var qtdMatriculas = 1
     var sumEmotions = 0
     var sumDuvida = 0
