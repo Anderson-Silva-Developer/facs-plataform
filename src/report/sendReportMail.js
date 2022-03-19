@@ -1,18 +1,16 @@
 const nodemailer=require("nodemailer")
-const SMTP_CONFIG= require("./smtp")
+const sendgridTransport=require("nodemailer-sendgrid-transport")
 
-const transporter=nodemailer.createTransport({
-    host:SMTP_CONFIG.host,
-    port:SMTP_CONFIG.port,
-    secure:false,
-    auth:{
-        user:SMTP_CONFIG.user,
-        pass:SMTP_CONFIG.pass
-    },
-    tls:{
-        rejectUnauthorized:false,
-    },   
-})
+const transporter=nodemailer.createTransport(
+    // {
+
+      sendgridTransport({
+        auth:{
+                api_key:process.env.API_KEY_SENDGRID                
+            }
+
+      })
+)
 
 async function sendEmail(){
     const mailSend=await transporter.sendMail({
@@ -23,11 +21,10 @@ async function sendEmail(){
         }],
         text:"Relatório FACEFACS",
         subject:"Assunto do e-mail",
-        from:"Anderson Silva Teste",
-        to:["silvaandersonpirenda@gmail.com","silvaandersonpirenda@gmail.com"],
+        from:process.env.emailfrom,
+        to:process.env.emailto,
 
-    })
-        
+    })  
 
 }
 
