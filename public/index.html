@@ -3,61 +3,63 @@
 <head>
     <title>face facs</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />   
-    <link rel="stylesheet" href="css/style.css"> 
-    
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link rel="stylesheet" href="css/style.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body >   
+<body>
 
     <div id="manutencao" class="center row ">
-   <div class="navbar-fixed">
-        <nav>
-        <div class="nav-wrapper">          
-            <a class="brand-logo center"><span>FACEFACS em manutenção</span><i class="large material-icons">build</i></a>                         
-                                
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper">
+
+                    <a class="brand-logo center"><span>FACEFACS em manutenção </span> </a>
+                                      
+
+                </div>
+            </nav>
+
         </div>
-        </nav>
-    
-    </div>
-       
-        
+
+
         <div class="carousel">
-            <a class="carousel-item" ><img src="img/tela01.png"></a>
-            <a class="carousel-item" ><img src="img/tela02.png"></a>
-            <a class="carousel-item" ><img src="img/tela03.png"></a>
-            <a class="carousel-item" ><img src="img/tela04.png"></a>
-            <a class="carousel-item" ><img src="img/tela05.png"></a>
-            <a class="carousel-item" ><img src="img/tela06.png"></a>
-            <a class="carousel-item" ><img src="img/tela07.png"></a>
-            <a class="carousel-item" ><img src="img/tela08.png"></a>
-            <a class="carousel-item" ><img src="img/tela09.png"></a>
-                      
-          </div>
+            <a class="carousel-item"><img src="img/tela01.png"></a>
+            <a class="carousel-item"><img src="img/tela02.png"></a>
+            <a class="carousel-item"><img src="img/tela03.png"></a>
+            <a class="carousel-item"><img src="img/tela04.png"></a>
+            <a class="carousel-item"><img src="img/tela05.png"></a>
+            <a class="carousel-item"><img src="img/tela06.png"></a>
+            <a class="carousel-item"><img src="img/tela07.png"></a>
+            <a class="carousel-item"><img src="img/tela08.png"></a>
+            <a class="carousel-item"><img src="img/tela09.png"></a>
+
+        </div>
     </div>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.carousel');
-      options={
-        indicators:true,      
-        duration : 150
-        
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.carousel');
+            options = {
+                indicators: true,
+                duration: 150
 
-      }
-      M.Carousel.init(elems, options);  
-        
-      setInterval(()=>{
-         M.Carousel.getInstance(elems[0]).next();    
-              
-      },3000);     
-      
-     });
-     
-  
+
+            }
+            M.Carousel.init(elems, options);
+
+            setInterval(() => {
+                M.Carousel.getInstance(elems[0]).next();
+
+            }, 3000);
+
+        });
+
+
     </script>
-    
+
 
 </body>
 
