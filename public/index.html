@@ -8,87 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body oncontextmenu="return false;">
-    <div id="fail" class="row hide">
-        <div class="col s12 m4 offset-m4">
-            <div class="card pink white-text">
-                <div class="card-content">
-                    <p>câmera não encontrada :(</p>
-                </div>
-            </div>
-        </div>
+<body >   
+
+    <div id="manutencao" class="center row ">
+        <h2>manutencao</h2>
+       
     </div>
-
-    <div id="login" class="center row ">
-        <div class="col s12">
-            <div class="card" style="margin-top:50px;">
-                <div class="card-action teal lighten-1 white-text">
-                    <h3 class="card-title center">FACE FACS</h3>
-
-                </div>
-                <div id="fundo-login" class="card-content">
-                    <div class="row">
-                        <div class="col s12">
-                            <form id="loginForm">
-                                <div>
-                                    <div class="input-field row s12 m12">
-                                        <span>Tipo de usuário</span>
-                                        <select id="select-user" onchange="userOpcao(this);">
-                                            <option value="0">Eu sou </option>
-                                            <option value="1">Prof(a)</option>
-                                            <option value="2">Aluno(a)</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-
-                                <div id="optionAluno" class="row input-field hide">
-                                    <div class="row input-field">  
-                                        <span>Matrícula com apenas letras e números</span>                                                                           
-                                        <input id="matricula" placeholder="matrícula" type="text"
-                                            style="text-transform:uppercase;width:95%;" pattern="[a-zA-Z0-9]+">
-                                    </div>
-                                    
-
-                                    <div class="file-field input-field">
-                                        <div class="btn">
-
-                                            <i class="material-icons">cloud_upload</i>
-
-                                            <input id="inputToken" type="file" accept=".json" >
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text" placeholder="adicionar token da aula">
-                                        </div>
-                                        
-                                    </div>
-                                   
-
-                                </div>
-
-
-                                <div class="row s12">
-                                    <button type="submit" style="width: 100%;"
-                                        class="waves-effect waves-light btn-small">Entrar</button>
-                                </div>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script src="https://unpkg.com/axios@0.21.4/dist/axios.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-2.3.0.js"></script>   
-    <script src="./js/login.js"></script>
-
-
 
 
 </body>
