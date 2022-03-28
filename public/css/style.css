@@ -1,6 +1,14 @@
 body{
-    background-color:darkgoldenrod;
+    background-color:white;
 }
-h2{
-    color:darkred;
+.nav-wrapper{
+    background-color:darkred;
+    
+}
+.nav-wrapper span{
+    color:darkorange;
+    
+}
+.carousel{
+    margin-top: 20px;
 }
